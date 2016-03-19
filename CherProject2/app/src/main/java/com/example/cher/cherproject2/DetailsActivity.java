@@ -46,7 +46,7 @@ public class DetailsActivity extends AppCompatActivity {
             detailsTypeTextView.setText(type);
             String location = helper.getLocationByID(idOfItemPressed);
             detailsLocationTextView.setText(location);
-            String info = helper.getInfoByID(idOfItemPressed);
+            int info = helper.getInfoByID(idOfItemPressed);
             detailsInfoTextView.setText(info);
         }
     }

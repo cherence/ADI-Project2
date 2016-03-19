@@ -33,7 +33,7 @@
         android:id="@+id/allResults_button_id"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="@string/favorites"
+        android:text="@string/viewAll"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textStyle="bold"

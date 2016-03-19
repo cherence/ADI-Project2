@@ -5,15 +5,10 @@ package com.example.cher.cherproject2;
  */
 public class Food extends Categories {
 
-    public Food(String mName, String mGeneralLocation) {
-        super(mName, mGeneralLocation);
+    public Food() {
     }
 
-    public Food(String mName, String mGeneralLocation, String mInformation) {
-        super(mName, mGeneralLocation, mInformation);
-    }
-
-    public Food(String mName, String mGeneralLocation, String mInformation, int mLogoImageNumber) {
-        super(mName, mGeneralLocation, mInformation, mLogoImageNumber);
+    public Food(String mName, String mGeneralLocation, String mInformation, int mLogoImageRId, int mHeaderImageRId, int mMapImageRId) {
+        super(mName, mGeneralLocation, mInformation, mLogoImageRId, mHeaderImageRId, mMapImageRId);
     }
 }

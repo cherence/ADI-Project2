@@ -24,19 +24,16 @@ public class MainActivity extends AppCompatActivity {
     Button showsButton;
     Button shoppingButton;
     Intent intentSendToResultsActivity;
+    HPSQLiteHelper mHelper;
 
-    static Boolean isFaveButtonPressed = false;
-    static Boolean isAllResultsButtonPressed = false;
-    static Boolean isFoodButtonPressed = false;
-    static Boolean isRidesButtonPressed = false;
-    static Boolean isShowButtonPressed = false;
-    static Boolean isShopButtonPressed = false;
-    static final String FAVORITES_BUTTON_KEY = "key for favorites button";
-    static final String ALL_RESULTS_BUTTON_KEY = "key for all results button";
-    static final String FOOD_BUTTON_KEY = "key for food button";
-    static final String RIDES_BUTTON_KEY = "key for rides button";
-    static final String SHOWS_BUTTON_KEY = "key for shows button";
-    static final String SHOPPING_BUTTON_KEY = "key for shopping button";
+    public static final String HOGSMEADE = "Hogsmeade";
+    public static final String HOGWARTS = "Hogwarts";
+    public static final String DIAGON_ALLEY = "Diagon Alley";
+    public static final String KNOCKTURN_ALLEY = "Knockturn Alley";
+    public static final String LONDON = "London, UK";
+
+
+    static final String TYPES_KEY = "key for favorites button";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initializeViews();
+        mHelper = HPSQLiteHelper.getmInstance(MainActivity.this);
+        insertRows();
         setIntents();
 
         createAndSetFavoritesButton();
@@ -65,21 +64,23 @@ public class MainActivity extends AppCompatActivity {
         shoppingButton = (Button) findViewById(R.id.shopping_button_id);
     }
 
+    public void insertRows(){
+        mHelper.insert("Food", "Three Broomsticks", HOGSMEADE, R.string.threeBroomSticks, R.drawable.threebroomsticks_logo, R.drawable.threebroomsticks_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Rides", "Dragon's Challenge", HOGSMEADE, R.string.dragonsChallenge, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Shows", "Celestina Warbeck Concert", DIAGON_ALLEY, R.string.celestinaWarbeck, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Shopping", "Borgin & Burkes", KNOCKTURN_ALLEY, R.string.borginBurkes, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+    }
+
     private void setIntents(){
         intentSendToResultsActivity = new Intent(MainActivity.this, ResultsActivity.class);
-        intentSendToResultsActivity.putExtra(FAVORITES_BUTTON_KEY, "Favorites");
-        intentSendToResultsActivity.putExtra(ALL_RESULTS_BUTTON_KEY, "View All");
-        intentSendToResultsActivity.putExtra(FOOD_BUTTON_KEY, "Food");
-        intentSendToResultsActivity.putExtra(RIDES_BUTTON_KEY, "Rides");
-        intentSendToResultsActivity.putExtra(SHOWS_BUTTON_KEY, "Shows");
-        intentSendToResultsActivity.putExtra(SHOPPING_BUTTON_KEY, "Shopping");
     }
 
     private void createAndSetFavoritesButton(){
         favoritesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isFaveButtonPressed = true;
+                String favorites = favoritesButton.getText().toString();
+                intentSendToResultsActivity.putExtra(TYPES_KEY, favorites);
                 startActivity(intentSendToResultsActivity);
             }
         });
@@ -89,7 +90,8 @@ public class MainActivity extends AppCompatActivity {
         allResultsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isAllResultsButtonPressed = true;
+                String allResults = favoritesButton.getText().toString();
+                intentSendToResultsActivity.putExtra(TYPES_KEY, allResults);
                 startActivity(intentSendToResultsActivity);
             }
         });
@@ -99,7 +101,8 @@ public class MainActivity extends AppCompatActivity {
         foodButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isFoodButtonPressed = true;
+                String food = foodButton.getText().toString();
+                intentSendToResultsActivity.putExtra(TYPES_KEY, food);
                 startActivity(intentSendToResultsActivity);
             }
         });
@@ -109,7 +112,8 @@ public class MainActivity extends AppCompatActivity {
         ridesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isRidesButtonPressed = true;
+                String rides = ridesButton.getText().toString();
+                intentSendToResultsActivity.putExtra(TYPES_KEY, rides);
                 startActivity(intentSendToResultsActivity);
             }
         });
@@ -119,7 +123,8 @@ public class MainActivity extends AppCompatActivity {
         showsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isShowButtonPressed= true;
+                String shows = showsButton.getText().toString();
+                intentSendToResultsActivity.putExtra(TYPES_KEY, shows);
                 startActivity(intentSendToResultsActivity);
             }
         });
@@ -129,7 +134,8 @@ public class MainActivity extends AppCompatActivity {
         shoppingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isShopButtonPressed = true;
+                String shopping = shoppingButton.getText().toString();
+                intentSendToResultsActivity.putExtra(TYPES_KEY, shopping);
                 startActivity(intentSendToResultsActivity);
             }
         });

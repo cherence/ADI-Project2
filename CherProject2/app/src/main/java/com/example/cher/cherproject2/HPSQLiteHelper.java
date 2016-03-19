@@ -61,7 +61,7 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
         onCreate(db); //might have to make it with "this"
     }
 
-    public void insert(String type, String name, String generalLocation, String information, int logoImage, int headerImage, int mapImage){
+    public void insert(String type, String name, String generalLocation, int information, int logoImage, int headerImage, int mapImage){
         ContentValues values = new ContentValues();
         values.put(COL_TYPE, type);
         values.put(COL_NAME, name);
@@ -73,6 +73,7 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_NAME, null, values);
+        db.close();
     }
 
     public Cursor getEntireTable(){
@@ -88,6 +89,148 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
                 null);
         return cursor;
     }
+
+    public Cursor getFoodRows(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_NAME,
+                TABLE_COLUMNS,
+                COL_TYPE + " = ?",
+                new String[]{"Food"},
+                COL_TYPE,
+                null,
+                COL_NAME,
+                null);
+        return cursor;
+    }
+
+    public Cursor getRidesRows(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_NAME,
+                TABLE_COLUMNS,
+                COL_TYPE + " = 'Rides'",
+                null,
+                COL_TYPE,
+                null,
+                COL_NAME,
+                null);
+        return cursor;
+    }
+
+    public Cursor getShowsRows(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_NAME,
+                TABLE_COLUMNS,
+                COL_TYPE + " = 'Shows'",
+                null,
+                COL_TYPE,
+                null,
+                COL_NAME,
+                null);
+        return cursor;
+    }
+
+    public Cursor getShoppingRows(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_NAME,
+                TABLE_COLUMNS,
+                COL_TYPE + " = 'Shopping'",
+                null,
+                COL_TYPE,
+                null,
+                COL_NAME,
+                null);
+        return cursor;
+    }
+
+    public Cursor searchEntireTable(String query){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_NAME,
+                TABLE_COLUMNS,
+                COL_TYPE + " LIKE" + "'%" + query + "%' OR " + COL_NAME + " LIKE" + "'%" + query + "%' OR " + COL_GENERAL_LOCATION + " LIKE" + "'%" + query + "%'",
+                new String[]{"%" + query + "%"},
+                COL_TYPE,
+                null,
+                COL_NAME,
+                null);
+        return cursor;
+    }
+
+    public Cursor searchFoodRows(String query){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_NAME,
+                new String []{COL_TYPE + " = 'Food'"},
+                COL_NAME + " LIKE" + "'%" + query + "%' OR " + COL_GENERAL_LOCATION + " LIKE" + "'%" + query + "%'",
+                new String[]{"%" + query + "%"},
+                COL_TYPE,
+                null,
+                COL_NAME,
+                null);
+        return cursor;
+    }
+
+    public Cursor searchRidesRows(String query){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_NAME,
+                new String []{COL_TYPE + " = 'Rides'"},
+                COL_NAME + " LIKE" + "'%" + query + "%' OR " + COL_GENERAL_LOCATION + " LIKE" + "'%" + query + "%'",
+                new String[]{"%" + query + "%"},
+                COL_TYPE,
+                null,
+                COL_NAME,
+                null);
+        return cursor;
+    }
+
+    public Cursor searchShowsRows(String query){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_NAME,
+                new String []{COL_TYPE + " = 'Shows'"},
+                COL_NAME + " LIKE" + "'%" + query + "%' OR " + COL_GENERAL_LOCATION + " LIKE" + "'%" + query + "%'",
+                new String[]{"%" + query + "%"},
+                COL_TYPE,
+                null,
+                COL_NAME,
+                null);
+        return cursor;
+    }
+
+    public Cursor searchShoppingRows(String query){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_NAME,
+                new String []{COL_TYPE + " = 'Shopping'"},
+                COL_NAME + " LIKE" + "'%" + query + "%' OR " + COL_GENERAL_LOCATION + " LIKE" + "'%" + query + "%'",
+                new String[]{"%" + query + "%"},
+                COL_TYPE,
+                null,
+                COL_NAME,
+                null);
+        return cursor;
+    }
+
+    public Cursor searchFavoriesRows(String query){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_NAME,
+                new String []{COL_TYPE + " = 'Favorites'"},
+                COL_NAME + " LIKE" + "'%" + query + "%' OR " + COL_GENERAL_LOCATION + " LIKE" + "'%" + query + "%'",
+                new String[]{"%" + query + "%"},
+                COL_TYPE,
+                null,
+                COL_NAME,
+                null);
+        return cursor;
+    }
+
+
 
     public String getNameByID(int _id){
         SQLiteDatabase db = this.getReadableDatabase();
