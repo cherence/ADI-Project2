@@ -7,7 +7,7 @@ public class Shows extends Categories {
     public Shows() {
     }
 
-    public Shows(String mName, String mGeneralLocation, String mInformation, int mLogoImageRId, int mHeaderImageRId, int mMapImageRId) {
-        super(mName, mGeneralLocation, mInformation, mLogoImageRId, mHeaderImageRId, mMapImageRId);
+    public Shows(String mType, String mName, String mGeneralLocation, int mInformation, int mLogoImageRId, int mHeaderImageRId, int mMapImageRId) {
+        super(mType, mName, mGeneralLocation, mInformation, mLogoImageRId, mHeaderImageRId, mMapImageRId);
     }
 }

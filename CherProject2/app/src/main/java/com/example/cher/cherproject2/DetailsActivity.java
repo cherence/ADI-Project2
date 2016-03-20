@@ -40,14 +40,13 @@ public class DetailsActivity extends AppCompatActivity {
         int idOfItemPressed = getIntent().getIntExtra(ResultsActivity.KEY_SENDING_PRIMARY_ID, -1);
 
         if(idOfItemPressed >= 0){
-            String name = helper.getNameByID(idOfItemPressed);
-            detailsNameTextView.setText(name);
-            String type = helper.getTypeByID(idOfItemPressed);
-            detailsTypeTextView.setText(type);
-            String location = helper.getLocationByID(idOfItemPressed);
-            detailsLocationTextView.setText(location);
-            int info = helper.getInfoByID(idOfItemPressed);
-            detailsInfoTextView.setText(info);
+            Food foodItemClicked = helper.createFoodObject(idOfItemPressed);
+            detailsNameTextView.setText(foodItemClicked.getmName());
+            detailsTypeTextView.setText(foodItemClicked.getmType());
+            detailsLocationTextView.setText(foodItemClicked.getmGeneralLocation());
+            detailsInfoTextView.setText(foodItemClicked.getmInformation());
+            detailsHeaderImageView.setImageResource(foodItemClicked.getmHeaderImageRId());
+            detailsMapImageView.setImageResource(foodItemClicked.getmMapImageRId());
         }
     }
 }

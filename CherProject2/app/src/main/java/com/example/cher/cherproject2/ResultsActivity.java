@@ -27,7 +27,6 @@ public class ResultsActivity extends AppCompatActivity {
     CursorAdapter mCursorAdapter;
     String titleExtra;
 
-    public static final String DETAILS_TITLE_KEY = "key for details title";
     public static final String KEY_SENDING_PRIMARY_ID = "_id";
 
 
@@ -78,23 +77,18 @@ public class ResultsActivity extends AppCompatActivity {
         Intent intentRetrieveFromMainActivity = getIntent();
         titleExtra = intentRetrieveFromMainActivity.getStringExtra(MainActivity.TYPES_KEY);
         resultsTitleTextView.setText(titleExtra);
-
-//        String faveTitle = intentRetrieveFromMainActivity.getStringExtra(MainActivity.FAVORITES_BUTTON_KEY);
-//        String allResultsTitle = intentRetrieveFromMainActivity.getStringExtra(MainActivity.ALL_RESULTS_BUTTON_KEY);
-//        String foodTitle = intentRetrieveFromMainActivity.getStringExtra(MainActivity.FOOD_BUTTON_KEY);
-//        String ridesTitle = intentRetrieveFromMainActivity.getStringExtra(MainActivity.RIDES_BUTTON_KEY);
-//        String showsTitle = intentRetrieveFromMainActivity.getStringExtra(MainActivity.SHOWS_BUTTON_KEY);
-//        String shopsTitle = intentRetrieveFromMainActivity.getStringExtra(MainActivity.SHOPPING_BUTTON_KEY);
     }
 
     private void setCursorAndCursorAdaptersForVariousSearches() {
 
         switch (resultsTitleTextView.getText().toString()) { //may be titleExtra
             case "Favorites":
+                mCursorAdapter.swapCursor(cursor);
                 categoryResultsListView.setAdapter(mCursorAdapter);
                 break;
             case "View All":
                 cursor = mHelper.getEntireTable();
+                mCursorAdapter.swapCursor(cursor);
                 categoryResultsListView.setAdapter(mCursorAdapter);
                 break;
             case "Food":
@@ -104,14 +98,17 @@ public class ResultsActivity extends AppCompatActivity {
                 break;
             case "Rides":
                 cursor = mHelper.getRidesRows();
+                mCursorAdapter.swapCursor(cursor);
                 categoryResultsListView.setAdapter(mCursorAdapter);
                 break;
             case "Shows":
                 cursor = mHelper.getShowsRows();
+                mCursorAdapter.swapCursor(cursor);
                 categoryResultsListView.setAdapter(mCursorAdapter);
                 break;
             case "Shopping":
                 cursor = mHelper.getShoppingRows();
+                mCursorAdapter.swapCursor(cursor);
                 categoryResultsListView.setAdapter(mCursorAdapter);
                 break;
         }
@@ -136,27 +133,27 @@ public class ResultsActivity extends AppCompatActivity {
     private void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
-            if (resultsTitleTextView.getText().equals("Favorites")) {
-                Cursor cursor = mHelper.searchFavoriesRows(query);
+            if (resultsTitleTextView.getText().toString().equals("Favorites")) {
+                Cursor cursor = mHelper.searchFavoritesRows(query);
                 mCursorAdapter.changeCursor(cursor);
                 mCursorAdapter.notifyDataSetChanged();
-            } else if (resultsTitleTextView.getText().equals("View All")) { //title reads "
-                Cursor cursor = mHelper.searchEntireTable(query);
+            } else if (resultsTitleTextView.getText().toString().equals("View All")) {
+                cursor = mHelper.searchEntireTable(query);
                 mCursorAdapter.changeCursor(cursor);
                 mCursorAdapter.notifyDataSetChanged();
-            } else if (resultsTitleTextView.getText().equals("Food")) {
-                Cursor cursor = mHelper.searchFoodRows(query);
+            } else if (resultsTitleTextView.getText().toString().equals("Food")) {
+                cursor = mHelper.searchFoodRows(query);
                 mCursorAdapter.changeCursor(cursor);
                 mCursorAdapter.notifyDataSetChanged();
-            } else if (resultsTitleTextView.getText().equals("Rides")) {
+            } else if (resultsTitleTextView.getText().toString().equals("Rides")) {
                 Cursor cursor = mHelper.searchRidesRows(query);
                 mCursorAdapter.changeCursor(cursor);
                 mCursorAdapter.notifyDataSetChanged();
-            } else if (resultsTitleTextView.getText().equals("Shows")) {
+            } else if (resultsTitleTextView.getText().toString().equals("Shows")) {
                 Cursor cursor = mHelper.searchShowsRows(query);
                 mCursorAdapter.changeCursor(cursor);
                 mCursorAdapter.notifyDataSetChanged();
-            } else if (resultsTitleTextView.getText().equals("Shopping")) {
+            } else if (resultsTitleTextView.getText().toString().equals("Shopping")) {
                 Cursor cursor = mHelper.searchShoppingRows(query);
                 mCursorAdapter.changeCursor(cursor);
                 mCursorAdapter.notifyDataSetChanged();

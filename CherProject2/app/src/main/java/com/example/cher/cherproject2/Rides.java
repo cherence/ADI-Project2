@@ -7,7 +7,8 @@ public class Rides extends Categories {
     public Rides() {
     }
 
-    public Rides(String mName, String mGeneralLocation, String mInformation, int mLogoImageRId, int mHeaderImageRId, int mMapImageRId) {
-        super(mName, mGeneralLocation, mInformation, mLogoImageRId, mHeaderImageRId, mMapImageRId);
+    public Rides(String mType, String mName, String mGeneralLocation, int mInformation, int mLogoImageRId, int mHeaderImageRId, int mMapImageRId) {
+        super(mType, mName, mGeneralLocation, mInformation, mLogoImageRId, mHeaderImageRId, mMapImageRId);
     }
 }
+

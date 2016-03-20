@@ -6,9 +6,10 @@ import android.widget.ImageView;
  * Created by leisforkokomo on 3/13/16.
  */
 public class Categories {
+    String mType;
     String mName;
     String mGeneralLocation;
-    String mInformation;
+    int mInformation;
     int mLogoImageRId;
     int mHeaderImageRId;
     int mMapImageRId;
@@ -16,13 +17,22 @@ public class Categories {
     public Categories() {
     }
 
-    public Categories(String mName, String mGeneralLocation, String mInformation, int mLogoImageRId, int mHeaderImageRId, int mMapImageRId) {
+    public Categories(String mType, String mName, String mGeneralLocation, int mInformation, int mLogoImageRId, int mHeaderImageRId, int mMapImageRId) {
+        this.mType = mType;
         this.mName = mName;
         this.mGeneralLocation = mGeneralLocation;
         this.mInformation = mInformation;
         this.mLogoImageRId = mLogoImageRId;
         this.mHeaderImageRId = mHeaderImageRId;
         this.mMapImageRId = mMapImageRId;
+    }
+
+    public String getmType() {
+        return mType;
+    }
+
+    public void setmType(String mType) {
+        this.mType = mType;
     }
 
     public String getmName() {
@@ -41,11 +51,11 @@ public class Categories {
         this.mGeneralLocation = mGeneralLocation;
     }
 
-    public String getmInformation() {
+    public int getmInformation() {
         return mInformation;
     }
 
-    public void setmInformation(String mInformation) {
+    public void setmInformation(int mInformation) {
         this.mInformation = mInformation;
     }
 

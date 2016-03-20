@@ -8,7 +8,7 @@ public class Shopping extends Categories{
     public Shopping() {
     }
 
-    public Shopping(String mName, String mGeneralLocation, String mInformation, int mLogoImageRId, int mHeaderImageRId, int mMapImageRId) {
-        super(mName, mGeneralLocation, mInformation, mLogoImageRId, mHeaderImageRId, mMapImageRId);
+    public Shopping(String mType, String mName, String mGeneralLocation, int mInformation, int mLogoImageRId, int mHeaderImageRId, int mMapImageRId) {
+        super(mType, mName, mGeneralLocation, mInformation, mLogoImageRId, mHeaderImageRId, mMapImageRId);
     }
 }

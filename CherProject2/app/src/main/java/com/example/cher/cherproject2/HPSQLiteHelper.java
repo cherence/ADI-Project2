@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.Calendar;
+
 /**
  * Created by leisforkokomo on 3/16/16.
  */
@@ -19,7 +21,7 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
     public static final String COL_NAME = "name";
     public static final String COL_GENERAL_LOCATION = "generalLocation";
     public static final String COL_INFORMATION = "information";
-    public static final String  COL_LOGO_IMAGE = "logoImage";
+    public static final String COL_LOGO_IMAGE = "logoImage";
     public static final String COL_HEADER_IMAGE = "headerImage";
     public static final String COL_MAP_IMAGE = "mapImage";
 
@@ -109,8 +111,8 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(TABLE_NAME,
                 TABLE_COLUMNS,
-                COL_TYPE + " = 'Rides'",
-                null,
+                COL_TYPE + " = ?",
+                new String[]{"Rides"},
                 COL_TYPE,
                 null,
                 COL_NAME,
@@ -123,8 +125,8 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(TABLE_NAME,
                 TABLE_COLUMNS,
-                COL_TYPE + " = 'Shows'",
-                null,
+                COL_TYPE + " = ?",
+                new String[]{"Shows"},
                 COL_TYPE,
                 null,
                 COL_NAME,
@@ -137,8 +139,8 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(TABLE_NAME,
                 TABLE_COLUMNS,
-                COL_TYPE + " = 'Shopping'",
-                null,
+                COL_TYPE + " = ?",
+                new String[]{"Shopping"},
                 COL_TYPE,
                 null,
                 COL_NAME,
@@ -151,9 +153,9 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(TABLE_NAME,
                 TABLE_COLUMNS,
-                COL_TYPE + " LIKE" + "'%" + query + "%' OR " + COL_NAME + " LIKE" + "'%" + query + "%' OR " + COL_GENERAL_LOCATION + " LIKE" + "'%" + query + "%'",
+                COL_TYPE + " LIKE ? OR " + COL_NAME + " LIKE ? OR " + COL_GENERAL_LOCATION + " LIKE ?",
                 new String[]{"%" + query + "%"},
-                COL_TYPE,
+                null,
                 null,
                 COL_NAME,
                 null);
@@ -164,8 +166,8 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_NAME,
-                new String []{COL_TYPE + " = 'Food'"},
-                COL_NAME + " LIKE" + "'%" + query + "%' OR " + COL_GENERAL_LOCATION + " LIKE" + "'%" + query + "%'",
+                TABLE_COLUMNS,
+                COL_TYPE + "= 'Food' AND " + COL_NAME + " LIKE ? OR " + COL_TYPE + "= 'Food' AND " + COL_GENERAL_LOCATION + " LIKE ?",
                 new String[]{"%" + query + "%"},
                 COL_TYPE,
                 null,
@@ -178,8 +180,8 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_NAME,
-                new String []{COL_TYPE + " = 'Rides'"},
-                COL_NAME + " LIKE" + "'%" + query + "%' OR " + COL_GENERAL_LOCATION + " LIKE" + "'%" + query + "%'",
+                TABLE_COLUMNS,
+                COL_TYPE + "= 'Rides' AND " + COL_NAME + " LIKE ? OR " + COL_TYPE + "= 'Rides' AND " + COL_GENERAL_LOCATION + " LIKE ?",
                 new String[]{"%" + query + "%"},
                 COL_TYPE,
                 null,
@@ -192,8 +194,8 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_NAME,
-                new String []{COL_TYPE + " = 'Shows'"},
-                COL_NAME + " LIKE" + "'%" + query + "%' OR " + COL_GENERAL_LOCATION + " LIKE" + "'%" + query + "%'",
+                TABLE_COLUMNS,
+                COL_TYPE + "= 'Shows' AND " + COL_NAME + " LIKE ? OR " + COL_TYPE + "= 'Shows' AND " + COL_GENERAL_LOCATION + " LIKE ?",
                 new String[]{"%" + query + "%"},
                 COL_TYPE,
                 null,
@@ -206,8 +208,8 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_NAME,
-                new String []{COL_TYPE + " = 'Shopping'"},
-                COL_NAME + " LIKE" + "'%" + query + "%' OR " + COL_GENERAL_LOCATION + " LIKE" + "'%" + query + "%'",
+                TABLE_COLUMNS,
+                COL_TYPE + "= 'Shopping' AND " + COL_NAME + " LIKE ? OR " + COL_TYPE + "= 'Shopping' AND " + COL_GENERAL_LOCATION + " LIKE ?",
                 new String[]{"%" + query + "%"},
                 COL_TYPE,
                 null,
@@ -216,12 +218,12 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public Cursor searchFavoriesRows(String query){
+    public Cursor searchFavoritesRows(String query){
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_NAME,
-                new String []{COL_TYPE + " = 'Favorites'"},
-                COL_NAME + " LIKE" + "'%" + query + "%' OR " + COL_GENERAL_LOCATION + " LIKE" + "'%" + query + "%'",
+                new String []{COL_TYPE + " = Favorites"},
+                COL_TYPE + " LIKE ? OR " + COL_NAME + " LIKE ? OR " + COL_GENERAL_LOCATION + " LIKE ?",
                 new String[]{"%" + query + "%"},
                 COL_TYPE,
                 null,
@@ -230,7 +232,20 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+    public Food createFoodObject(int _id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, // a. table
+                TABLE_COLUMNS, // b. column names
+                COL_ID + " = ?", // c. selections
+                new String[]{String.valueOf(_id)}, // d. selections args
+                null, // e. group by
+                null, // f. having
+                null, // g. order by
+                null); // h. limit
 
+        cursor.moveToFirst();
+        return new Food(cursor.getString(cursor.getColumnIndex(COL_TYPE)), cursor.getString(cursor.getColumnIndex(COL_NAME)), cursor.getString(cursor.getColumnIndex(COL_GENERAL_LOCATION)), cursor.getInt(cursor.getColumnIndex(COL_INFORMATION)), cursor.getInt(cursor.getColumnIndex(COL_LOGO_IMAGE)), cursor.getInt(cursor.getColumnIndex(COL_HEADER_IMAGE)), cursor.getInt(cursor.getColumnIndex(COL_MAP_IMAGE)));
+    }
 
     public String getNameByID(int _id){
         SQLiteDatabase db = this.getReadableDatabase();

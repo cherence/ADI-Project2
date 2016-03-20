@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         allResultsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String allResults = favoritesButton.getText().toString();
+                String allResults = allResultsButton.getText().toString();
                 intentSendToResultsActivity.putExtra(TYPES_KEY, allResults);
                 startActivity(intentSendToResultsActivity);
             }
