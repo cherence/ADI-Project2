@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String DIAGON_ALLEY = "Diagon Alley";
     public static final String KNOCKTURN_ALLEY = "Knockturn Alley";
     public static final String LONDON = "London, UK";
+    public static final String FAVORITE = "true";
+    public static final String NOT_FAVORITE = "false";
 
 
     static final String TYPES_KEY = "key for favorites button";
@@ -65,10 +67,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void insertRows(){
-        mHelper.insert("Food", "Three Broomsticks", HOGSMEADE, "false", R.string.threeBroomSticks, R.drawable.threebroomsticks_logo, R.drawable.threebroomsticks_header, R.drawable.threebroomsticks_map);
-        mHelper.insert("Rides", "Dragon's Challenge", HOGSMEADE, "false",  R.string.dragonsChallenge, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert("Shows", "Celestina Warbeck Concert", DIAGON_ALLEY, "false",  R.string.celestinaWarbeck, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert("Shopping", "Borgin & Burkes", KNOCKTURN_ALLEY, "false",  R.string.borginBurkes, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Food", "Three Broomsticks", HOGSMEADE, NOT_FAVORITE, R.string.threeBroomSticks, R.drawable.threebroomsticks_logo, R.drawable.threebroomsticks_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Rides", "Dragon's Challenge", HOGSMEADE, NOT_FAVORITE,  R.string.dragonsChallenge, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Shows", "Celestina Warbeck Concert", DIAGON_ALLEY, NOT_FAVORITE,  R.string.celestinaWarbeck, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Shopping", "Borgin & Burkes", KNOCKTURN_ALLEY, NOT_FAVORITE,  R.string.borginBurkes, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
     }
 
     private void setIntents(){

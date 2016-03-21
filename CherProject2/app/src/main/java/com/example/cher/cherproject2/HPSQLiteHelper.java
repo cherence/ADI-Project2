@@ -275,9 +275,9 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
         String generalLocation = cursor.getString(cursor.getColumnIndex(COL_GENERAL_LOCATION));
         String favoriteStatus = cursor.getString(cursor.getColumnIndex(COL_FAVORITE_STATUS));
         int informationStringRID = cursor.getInt(cursor.getColumnIndex(COL_INFORMATION));
-        int logoImageRID = cursor.getInt(cursor.getColumnIndex(COL_INFORMATION));
-        int headerImageRID = cursor.getInt(cursor.getColumnIndex(COL_INFORMATION));
-        int mapImageRID = cursor.getInt(cursor.getColumnIndex(COL_INFORMATION));
+        int logoImageRID = cursor.getInt(cursor.getColumnIndex(COL_LOGO_IMAGE));
+        int headerImageRID = cursor.getInt(cursor.getColumnIndex(COL_HEADER_IMAGE));
+        int mapImageRID = cursor.getInt(cursor.getColumnIndex(COL_MAP_IMAGE));
         return new Categories(type, name, generalLocation, favoriteStatus, informationStringRID,logoImageRID, headerImageRID, mapImageRID);
     }
 

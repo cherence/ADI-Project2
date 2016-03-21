@@ -54,8 +54,8 @@ public class DetailsActivity extends AppCompatActivity {
             detailsTypeTextView.setText(itemClicked.getmType());
             detailsLocationTextView.setText(itemClicked.getmGeneralLocation());
             detailsInfoTextView.setText(itemClicked.getmInformation());
-//            detailsHeaderImageView.setBackgroundResource(itemClicked.getmHeaderImageRId());
-//            detailsMapImageView.setBackgroundResource(itemClicked.getmMapImageRId());
+            detailsHeaderImageView.setBackgroundResource(itemClicked.getmHeaderImageRId());
+            detailsMapImageView.setBackgroundResource(itemClicked.getmMapImageRId());
         }
     }
 
@@ -64,24 +64,17 @@ public class DetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 switch (itemClicked.getFavoriteStatus()){
-                    case "false":
+                    case MainActivity.NOT_FAVORITE:
                         detailsFavoriteStatusButton.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
-                        mHelper.updateFavoriteStatus(idOfItemPressed, "true");
-                        itemClicked.setFavoriteStatus("true");
+                        mHelper.updateFavoriteStatus(idOfItemPressed, MainActivity.FAVORITE);
+                        itemClicked.setFavoriteStatus(MainActivity.FAVORITE);
                         break;
-                    case "true":
+                    case MainActivity.FAVORITE:
                         detailsFavoriteStatusButton.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
-                        mHelper.updateFavoriteStatus(idOfItemPressed, "false");
-                        itemClicked.setFavoriteStatus("false");
+                        mHelper.updateFavoriteStatus(idOfItemPressed, MainActivity.NOT_FAVORITE);
+                        itemClicked.setFavoriteStatus(MainActivity.NOT_FAVORITE);
                         break;
                 }
-//                if (itemClicked.getFavoriteStatus().equals("false")) {
-//                    detailsFavoriteStatusButton.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
-//                    mHelper.updateFavoriteStatus(idOfItemPressed, "true"); // update the specific row with idOfItemPressed in the table to have favoriteStatus be "true"
-//                } else if (itemClicked.getFavoriteStatus().equals("true")){
-//                    detailsFavoriteStatusButton.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
-//                    mHelper.updateFavoriteStatus(idOfItemPressed,"false");
-//                }
             }
         });
 
