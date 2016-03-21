@@ -6,8 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.util.Calendar;
-
 /**
  * Created by leisforkokomo on 3/16/16.
  */
@@ -20,12 +18,14 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
     public static final String COL_TYPE = "type";
     public static final String COL_NAME = "name";
     public static final String COL_GENERAL_LOCATION = "generalLocation";
+    public static final String COL_FAVORITE_STATUS = "favoriteStatus";
     public static final String COL_INFORMATION = "information";
     public static final String COL_LOGO_IMAGE = "logoImage";
     public static final String COL_HEADER_IMAGE = "headerImage";
     public static final String COL_MAP_IMAGE = "mapImage";
 
-    public static final String[] TABLE_COLUMNS = {COL_ID,COL_TYPE,COL_NAME,COL_GENERAL_LOCATION,COL_INFORMATION,COL_LOGO_IMAGE,COL_HEADER_IMAGE,COL_MAP_IMAGE};
+
+    public static final String[] TABLE_COLUMNS = {COL_ID,COL_TYPE,COL_NAME,COL_GENERAL_LOCATION,COL_FAVORITE_STATUS,COL_INFORMATION,COL_LOGO_IMAGE,COL_HEADER_IMAGE,COL_MAP_IMAGE};
     public static final String DROP_HPWORLD_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
 
     public static final String CREATE_HPWORLD_TABLE =
@@ -35,6 +35,7 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
                     COL_TYPE + " TEXT, " +
                     COL_NAME + " TEXT, " +
                     COL_GENERAL_LOCATION + " TEXT, " +
+                    COL_FAVORITE_STATUS + " TEXT, " +
                     COL_INFORMATION + " INTEGER, " +
                     COL_LOGO_IMAGE + " INTEGER, " +
                     COL_HEADER_IMAGE + " INTEGER, " +
@@ -63,11 +64,12 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
         onCreate(db); //might have to make it with "this"
     }
 
-    public void insert(String type, String name, String generalLocation, int information, int logoImage, int headerImage, int mapImage){
+    public void insert(String type, String name, String generalLocation, String favoriteStatus, int information, int logoImage, int headerImage, int mapImage){
         ContentValues values = new ContentValues();
         values.put(COL_TYPE, type);
         values.put(COL_NAME, name);
         values.put(COL_GENERAL_LOCATION, generalLocation);
+        values.put(COL_FAVORITE_STATUS, favoriteStatus);
         values.put(COL_INFORMATION, information);
         values.put(COL_LOGO_IMAGE, logoImage);
         values.put(COL_HEADER_IMAGE, headerImage);
@@ -75,6 +77,15 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_NAME, null, values);
+        db.close();
+    }
+
+    public void updateFavoriteStatus(int _id, String favoriteStatus){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_FAVORITE_STATUS, favoriteStatus);
+
+        db.update(TABLE_NAME, values, "_id=" + _id, null);
         db.close();
     }
 
@@ -141,6 +152,21 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
                 TABLE_COLUMNS,
                 COL_TYPE + " = ?",
                 new String[]{"Shopping"},
+                COL_TYPE,
+                null,
+                COL_NAME,
+                null);
+        return cursor;
+    }
+
+
+    public Cursor getFavoriteRows(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_NAME,
+                TABLE_COLUMNS,
+                COL_FAVORITE_STATUS + " = ?",
+                new String[]{"true"},
                 COL_TYPE,
                 null,
                 COL_NAME,
@@ -222,8 +248,8 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_NAME,
-                new String []{COL_TYPE + " = Favorites"},
-                COL_TYPE + " LIKE ? OR " + COL_NAME + " LIKE ? OR " + COL_GENERAL_LOCATION + " LIKE ?",
+                TABLE_COLUMNS,
+                COL_FAVORITE_STATUS + "= 'true' AND " + COL_TYPE + " LIKE ? OR " + COL_NAME + " LIKE ? OR " + COL_GENERAL_LOCATION + " LIKE ?",
                 new String[]{"%" + query + "%"},
                 COL_TYPE,
                 null,
@@ -232,7 +258,7 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public Food createFoodObject(int _id){
+    public Categories createObject(int _id){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME, // a. table
                 TABLE_COLUMNS, // b. column names
@@ -244,7 +270,15 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
                 null); // h. limit
 
         cursor.moveToFirst();
-        return new Food(cursor.getString(cursor.getColumnIndex(COL_TYPE)), cursor.getString(cursor.getColumnIndex(COL_NAME)), cursor.getString(cursor.getColumnIndex(COL_GENERAL_LOCATION)), cursor.getInt(cursor.getColumnIndex(COL_INFORMATION)), cursor.getInt(cursor.getColumnIndex(COL_LOGO_IMAGE)), cursor.getInt(cursor.getColumnIndex(COL_HEADER_IMAGE)), cursor.getInt(cursor.getColumnIndex(COL_MAP_IMAGE)));
+        String type = cursor.getString(cursor.getColumnIndex(COL_TYPE));
+        String name = cursor.getString(cursor.getColumnIndex(COL_NAME));
+        String generalLocation = cursor.getString(cursor.getColumnIndex(COL_GENERAL_LOCATION));
+        String favoriteStatus = cursor.getString(cursor.getColumnIndex(COL_FAVORITE_STATUS));
+        int informationStringRID = cursor.getInt(cursor.getColumnIndex(COL_INFORMATION));
+        int logoImageRID = cursor.getInt(cursor.getColumnIndex(COL_INFORMATION));
+        int headerImageRID = cursor.getInt(cursor.getColumnIndex(COL_INFORMATION));
+        int mapImageRID = cursor.getInt(cursor.getColumnIndex(COL_INFORMATION));
+        return new Categories(type, name, generalLocation, favoriteStatus, informationStringRID,logoImageRID, headerImageRID, mapImageRID);
     }
 
     public String getNameByID(int _id){

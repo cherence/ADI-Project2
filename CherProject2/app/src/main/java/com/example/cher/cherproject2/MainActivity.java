@@ -65,10 +65,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void insertRows(){
-        mHelper.insert("Food", "Three Broomsticks", HOGSMEADE, R.string.threeBroomSticks, R.drawable.threebroomsticks_logo, R.drawable.threebroomsticks_header, R.drawable.threebroomsticks_map);
-        mHelper.insert("Rides", "Dragon's Challenge", HOGSMEADE, R.string.dragonsChallenge, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert("Shows", "Celestina Warbeck Concert", DIAGON_ALLEY, R.string.celestinaWarbeck, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert("Shopping", "Borgin & Burkes", KNOCKTURN_ALLEY, R.string.borginBurkes, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Food", "Three Broomsticks", HOGSMEADE, "false", R.string.threeBroomSticks, R.drawable.threebroomsticks_logo, R.drawable.threebroomsticks_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Rides", "Dragon's Challenge", HOGSMEADE, "false",  R.string.dragonsChallenge, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Shows", "Celestina Warbeck Concert", DIAGON_ALLEY, "false",  R.string.celestinaWarbeck, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Shopping", "Borgin & Burkes", KNOCKTURN_ALLEY, "false",  R.string.borginBurkes, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
     }
 
     private void setIntents(){

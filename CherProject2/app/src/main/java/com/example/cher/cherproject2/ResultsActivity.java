@@ -83,6 +83,7 @@ public class ResultsActivity extends AppCompatActivity {
 
         switch (resultsTitleTextView.getText().toString()) { //may be titleExtra
             case "Favorites":
+                cursor = mHelper.getFavoriteRows();
                 mCursorAdapter.swapCursor(cursor);
                 categoryResultsListView.setAdapter(mCursorAdapter);
                 break;
