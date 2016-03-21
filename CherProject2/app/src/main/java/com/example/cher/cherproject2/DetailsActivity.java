@@ -63,13 +63,25 @@ public class DetailsActivity extends AppCompatActivity {
         detailsFavoriteStatusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (itemClicked.getFavoriteStatus().equals("false")) {
-                    detailsFavoriteStatusButton.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
-                    mHelper.updateFavoriteStatus(idOfItemPressed, "true"); // update the specific row with idOfItemPressed in the table to have favoriteStatus be "true"
-                } else if (itemClicked.getFavoriteStatus().equals("true")){
-                    detailsFavoriteStatusButton.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
-                    mHelper.updateFavoriteStatus(idOfItemPressed,"false");
+                switch (itemClicked.getFavoriteStatus()){
+                    case "false":
+                        detailsFavoriteStatusButton.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
+                        mHelper.updateFavoriteStatus(idOfItemPressed, "true");
+                        itemClicked.setFavoriteStatus("true");
+                        break;
+                    case "true":
+                        detailsFavoriteStatusButton.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
+                        mHelper.updateFavoriteStatus(idOfItemPressed, "false");
+                        itemClicked.setFavoriteStatus("false");
+                        break;
                 }
+//                if (itemClicked.getFavoriteStatus().equals("false")) {
+//                    detailsFavoriteStatusButton.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
+//                    mHelper.updateFavoriteStatus(idOfItemPressed, "true"); // update the specific row with idOfItemPressed in the table to have favoriteStatus be "true"
+//                } else if (itemClicked.getFavoriteStatus().equals("true")){
+//                    detailsFavoriteStatusButton.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
+//                    mHelper.updateFavoriteStatus(idOfItemPressed,"false");
+//                }
             }
         });
 
