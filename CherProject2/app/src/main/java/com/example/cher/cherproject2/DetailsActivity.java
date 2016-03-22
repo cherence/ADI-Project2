@@ -64,9 +64,9 @@ public class DetailsActivity extends AppCompatActivity {
 
     private void setFavoriteButtonImage(){
         if(itemClicked.getFavoriteStatus().equals(MainActivity.NOT_FAVORITE)){
-            detailsFavoriteStatusButton.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
+            detailsFavoriteStatusButton.setBackgroundResource(R.drawable.empty_heart_icon);
         } else{
-            detailsFavoriteStatusButton.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
+            detailsFavoriteStatusButton.setBackgroundResource(R.drawable.filled_heart_icon);
         }
     }
 
@@ -77,12 +77,12 @@ public class DetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 switch (itemClicked.getFavoriteStatus()){
                     case MainActivity.NOT_FAVORITE:
-                        detailsFavoriteStatusButton.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
+                        detailsFavoriteStatusButton.setBackgroundResource(R.drawable.filled_heart_icon);
                         mHelper.updateFavoriteStatus(idOfItemPressed, MainActivity.FAVORITE);
                         itemClicked.setFavoriteStatus(MainActivity.FAVORITE);
                         break;
                     case MainActivity.FAVORITE:
-                        detailsFavoriteStatusButton.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
+                        detailsFavoriteStatusButton.setBackgroundResource(R.drawable.empty_heart_icon);
                         mHelper.updateFavoriteStatus(idOfItemPressed, MainActivity.NOT_FAVORITE);
                         itemClicked.setFavoriteStatus(MainActivity.NOT_FAVORITE);
                         break;

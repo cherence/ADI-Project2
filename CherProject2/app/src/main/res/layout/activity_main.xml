@@ -15,89 +15,77 @@
         android:layout_height="200sp"
         android:background="@drawable/welcome"/>
 
-    <Button
-        android:id="@+id/favorite_button_id"
+    <LinearLayout
+        android:id="@+id/icons_row1_id"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="@string/favorites"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:layout_above="@+id/allResults_button_id"
-        android:textColor="@color/mainTextColor"
-        android:background="@color/colorAccent"
-        />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/welcome_imageView_id">
 
-    <Button
-        android:id="@+id/allResults_button_id"
+        <Button
+            android:id="@+id/favorite_button_id"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:text="@string/favorites"
+            android:textAlignment="center"
+            android:textSize="0sp"
+            android:background="@drawable/filled_heart_icon"
+            />
+
+        <Button
+            android:id="@+id/allResults_button_id"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:text="@string/viewAll"
+            android:textSize="0sp"
+            android:background="@drawable/view_all_icon"
+            />
+
+        <Button
+            android:id="@+id/shows_button_id"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:text="@string/shows"
+            android:textSize="0sp"
+            android:background="@drawable/shows_icon"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/icons_row2_id"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="@string/viewAll"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:layout_above="@+id/food_button_id"
-        android:textColor="@color/mainTextColor"
-        android:background="@color/colorAccent"
-        />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/icons_row1_id">
 
+        <Button
+            android:id="@+id/rides_button_id"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:text="@string/rides"
+            android:textSize="0sp"
+            android:background="@drawable/rides_icon"
+            />
 
-    <Button
-        android:id="@+id/food_button_id"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="@string/food"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:layout_above="@+id/rides_button_id"
-        android:textColor="@color/mainTextColor"
-        android:background="@color/colorAccent"
-        />
+        <Button
+            android:id="@+id/shopping_button_id"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:text="@string/shopping"
+            android:textSize="0sp"
+            android:background="@drawable/shopping_icon"
+            />
 
-    <Button
-        android:id="@+id/rides_button_id"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="@string/rides"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:layout_above="@+id/shows_button_id"
-        android:textColor="@color/mainTextColor"
-        android:background="@color/colorAccent"
-        />
+        <Button
+            android:id="@+id/food_button_id"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:text="@string/food"
+            android:textSize="0sp"
+            android:background="@drawable/food_icon"
+            />
 
-    <Button
-        android:id="@+id/shows_button_id"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="@string/shows"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:layout_above="@+id/shopping_button_id"
-        android:textColor="@color/mainTextColor"
-        android:background="@color/colorAccent"
-        />
-
-    <Button
-        android:id="@+id/shopping_button_id"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="@string/shopping"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:layout_alignParentBottom="true"
-        android:textColor="@color/mainTextColor"
-        android:background="@color/colorAccent"
-        />
+    </LinearLayout>
 
 </RelativeLayout>
