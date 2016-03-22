@@ -96,9 +96,9 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
                 TABLE_COLUMNS,
                 null,
                 null,
-                COL_TYPE,
+                null, //COL_TYPE,
                 null,
-                COL_NAME,
+                null, //COL_NAME,
                 null);
         return cursor;
     }
@@ -110,9 +110,9 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
                 TABLE_COLUMNS,
                 COL_TYPE + " = ?",
                 new String[]{"Food"},
-                COL_TYPE,
+                null, //COL_TYPE,
                 null,
-                COL_NAME,
+                null, //COL_NAME,
                 null);
         return cursor;
     }
@@ -124,9 +124,9 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
                 TABLE_COLUMNS,
                 COL_TYPE + " = ?",
                 new String[]{"Rides"},
-                COL_TYPE,
+                null, //COL_TYPE,
                 null,
-                COL_NAME,
+                null, //COL_NAME,
                 null);
         return cursor;
     }
@@ -138,9 +138,9 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
                 TABLE_COLUMNS,
                 COL_TYPE + " = ?",
                 new String[]{"Shows"},
-                COL_TYPE,
+                null, //COL_TYPE,
                 null,
-                COL_NAME,
+                null, //COL_NAME,
                 null);
         return cursor;
     }
@@ -152,9 +152,9 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
                 TABLE_COLUMNS,
                 COL_TYPE + " = ?",
                 new String[]{"Shopping"},
-                COL_TYPE,
+                null, //COL_TYPE,
                 null,
-                COL_NAME,
+                null, //COL_NAME,
                 null);
         return cursor;
     }
@@ -167,9 +167,9 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
                 TABLE_COLUMNS,
                 COL_FAVORITE_STATUS + " = ?",
                 new String[]{MainActivity.FAVORITE},
-                COL_TYPE,
+                null, //COL_TYPE,
                 null,
-                COL_NAME,
+                null, //COL_NAME,
                 null);
         return cursor;
     }
@@ -195,7 +195,7 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
                 TABLE_COLUMNS,
                 COL_TYPE + "= 'Food' AND " + COL_NAME + " LIKE ? OR " + COL_TYPE + "= 'Food' AND " + COL_GENERAL_LOCATION + " LIKE ?",
                 new String[]{"%" + query + "%", "%" + query + "%"},
-                COL_TYPE,
+                null, //COL_TYPE,
                 null,
                 COL_NAME,
                 null);
@@ -209,7 +209,7 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
                 TABLE_COLUMNS,
                 COL_TYPE + "= 'Rides' AND " + COL_NAME + " LIKE ? OR " + COL_TYPE + "= 'Rides' AND " + COL_GENERAL_LOCATION + " LIKE ?",
                 new String[]{"%" + query + "%", "%" + query + "%"},
-                COL_TYPE,
+                null, //COL_TYPE,
                 null,
                 COL_NAME,
                 null);
@@ -223,7 +223,7 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
                 TABLE_COLUMNS,
                 COL_TYPE + "= 'Shows' AND " + COL_NAME + " LIKE ? OR " + COL_TYPE + "= 'Shows' AND " + COL_GENERAL_LOCATION + " LIKE ?",
                 new String[]{"%" + query + "%", "%" + query + "%"},
-                COL_TYPE,
+                null, //COL_TYPE,
                 null,
                 COL_NAME,
                 null);
@@ -237,7 +237,7 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
                 TABLE_COLUMNS,
                 COL_TYPE + "= 'Shopping' AND " + COL_NAME + " LIKE ? OR " + COL_TYPE + "= 'Shopping' AND " + COL_GENERAL_LOCATION + " LIKE ?",
                 new String[]{"%" + query + "%", "%" + query + "%"},
-                COL_TYPE,
+                null, //COL_TYPE,
                 null,
                 COL_NAME,
                 null);
@@ -251,7 +251,7 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
                 TABLE_COLUMNS,
                 COL_FAVORITE_STATUS + "= '" + MainActivity.FAVORITE + "' AND " + COL_TYPE + " LIKE ? OR " + COL_FAVORITE_STATUS + "= '" + MainActivity.FAVORITE + "' AND " + COL_NAME + " LIKE ? OR " + COL_FAVORITE_STATUS + "= '" + MainActivity.FAVORITE + "' AND "+ COL_GENERAL_LOCATION + " LIKE ?",
                 new String[]{"%" + query + "%", "%" + query + "%", "%" + query + "%"},
-                COL_TYPE,
+                null, //COL_TYPE,
                 null,
                 COL_NAME,
                 null);
@@ -279,81 +279,5 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
         int headerImageRID = cursor.getInt(cursor.getColumnIndex(COL_HEADER_IMAGE));
         int mapImageRID = cursor.getInt(cursor.getColumnIndex(COL_MAP_IMAGE));
         return new Categories(type, name, generalLocation, favoriteStatus, informationStringRID,logoImageRID, headerImageRID, mapImageRID);
-    }
-
-    public String getNameByID(int _id){
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.query(TABLE_NAME, // a. table
-                new String[]{COL_NAME}, // b. column names
-                COL_ID + " = ?", // c. selections
-                new String[]{String.valueOf(_id)}, // d. selections args
-                null, // e. group by
-                null, // f. having
-                null, // g. order by
-                null); // h. limit
-
-        if(cursor.moveToFirst()){
-            return cursor.getString(cursor.getColumnIndex(COL_NAME));
-        } else {
-            return "No Name Found";
-        }
-    }
-
-    public String getTypeByID(int _id){
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.query(TABLE_NAME, // a. table
-                new String[]{COL_TYPE}, // b. column names
-                COL_ID + " = ?", // c. selections
-                new String[]{String.valueOf(_id)}, // d. selections args
-                null, // e. group by
-                null, // f. having
-                null, // g. order by
-                null); // h. limit
-
-        if(cursor.moveToFirst()){
-            return cursor.getString(cursor.getColumnIndex(COL_TYPE));
-        } else {
-            return "No Type Found";
-        }
-    }
-
-    public String getLocationByID(int _id){
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.query(TABLE_NAME, // a. table
-                new String[]{COL_GENERAL_LOCATION}, // b. column names
-                COL_ID + " = ?", // c. selections
-                new String[]{String.valueOf(_id)}, // d. selections args
-                null, // e. group by
-                null, // f. having
-                null, // g. order by
-                null); // h. limit
-
-        if(cursor.moveToFirst()){
-            return cursor.getString(cursor.getColumnIndex(COL_GENERAL_LOCATION));
-        } else {
-            return "No Location Found";
-        }
-    }
-
-    public int getInfoByID(int _id){
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.query(TABLE_NAME, // a. table
-                new String[]{COL_INFORMATION}, // b. column names
-                COL_ID + " = ?", // c. selections
-                new String[]{String.valueOf(_id)}, // d. selections args
-                null, // e. group by
-                null, // f. having
-                null, // g. order by
-                null); // h. limit
-
-        if(cursor.moveToFirst()){
-            return cursor.getInt(cursor.getColumnIndex(COL_INFORMATION));
-        } else {
-            return -22;
-        }
     }
 }

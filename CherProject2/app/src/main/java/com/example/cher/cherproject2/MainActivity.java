@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     Button shoppingButton;
     Intent intentSendToResultsActivity;
     HPSQLiteHelper mHelper;
+    SharedPreferences sharedPreferences;
     boolean firstLaunch;
     boolean isPlaying;
 
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String NOT_FAVORITE = "colloportus";
     public static final String TYPES_KEY = "key for all button";
     public static final String SHARED_PREFERENCES_KEY = "key for sharedPreferences";
-    public static final String SP_INSERT_ROWS_KEY = "sharedPreferences key for inserting rows";
+    public static final String FIRST_RUN_KEY = "sharedPreferences key for inserting rows";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +51,12 @@ public class MainActivity extends AppCompatActivity {
         isPlaying = MusicService.isPlaying;
         firstLaunch = true;
 
-//        makeTableOrRetrieveSharedPreferences();
-
         initializeViews();
         mHelper = HPSQLiteHelper.getmInstance(MainActivity.this);
-        insertRows();
+        makeTableOrRetrieveSharedPreferences();
+//        populateTable();
 
-//        saveSharedPreferences();
+        saveSharedPreferences();
         setIntents();
 
         createAndSetFavoritesButton();
@@ -65,17 +65,18 @@ public class MainActivity extends AppCompatActivity {
         createAndSetRidesButton();
         createAndSetShowsButton();
         createAndSetShoppingButton();
-
     }
 
-//    private void makeTableOrRetrieveSharedPreferences(){
-//        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE);
-//        Boolean hasRun = sharedPreferences.getBoolean(SP_INSERT_ROWS_KEY, false);
-//        //if it's the very first time...
-//        if (!hasRun) {
-//            Log.d("MainActivity", "populating table");
-//        }
-//    }
+    private void makeTableOrRetrieveSharedPreferences(){
+        sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE);
+        firstLaunch = sharedPreferences.getBoolean(FIRST_RUN_KEY, true);
+        //if it's the very first time...
+        if (firstLaunch == false) {
+            return;
+        } if (firstLaunch == true){
+            populateTable();
+        }
+    }
 
     private void initializeViews(){
         welcomeImage = (ImageView) findViewById(R.id.welcome_imageView_id);
@@ -87,29 +88,49 @@ public class MainActivity extends AppCompatActivity {
         shoppingButton = (Button) findViewById(R.id.shopping_button_id);
     }
 
-    public void insertRows(){
+    public void populateTable(){
         mHelper.insert("Food", "Three Broomsticks", HOGSMEADE, NOT_FAVORITE, R.string.threeBroomSticks, R.drawable.threebroomsticks_logo, R.drawable.threebroomsticks_header, R.drawable.threebroomsticks_map);
-        mHelper.insert("Rides", "Dragon's Challenge", HOGSMEADE, NOT_FAVORITE,  R.string.dragonsChallenge, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Food", "Hog\'s Head Pub", HOGSMEADE, NOT_FAVORITE, R.string.hogsHeadPub, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Food", "Leaky Cauldron", DIAGON_ALLEY, NOT_FAVORITE, R.string.leakyCauldron, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Food", "The Hopping Pot", DIAGON_ALLEY, NOT_FAVORITE, R.string.hoppingPot, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Food", "Florean Fortescue\'s Ice-Cream Parlour", DIAGON_ALLEY, NOT_FAVORITE, R.string.floreanFortescue, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Rides", "Dragon's Challenge", HOGSMEADE, NOT_FAVORITE, R.string.dragonsChallenge, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Rides", "Flight of the Hippogriff", HOGWARTS, NOT_FAVORITE, R.string.flightHippogriff, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Rides", "Harry Potter and the Forbidden Journey", HOGWARTS, NOT_FAVORITE, R.string.forbiddenJourney, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Rides", "Escape from Gringotts", DIAGON_ALLEY, NOT_FAVORITE, R.string.escapeGringotts, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Rides", "Hogsmeade Station", HOGSMEADE, NOT_FAVORITE, R.string.hogsmeadeStation, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Rides", "King\'s Cross Station", LONDON, NOT_FAVORITE, R.string.kingsCrossStation, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
         mHelper.insert("Shows", "Celestina Warbeck Concert", DIAGON_ALLEY, NOT_FAVORITE,  R.string.celestinaWarbeck, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Shows", "Frog Choir", HOGWARTS, NOT_FAVORITE,  R.string.frogChoir, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Shows", "Olivanders Wand Experience", HOGSMEADE, NOT_FAVORITE,  R.string.olivandersExperienceH, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Shows", "Olivanders Wand Experience", DIAGON_ALLEY, NOT_FAVORITE,  R.string.olivandersExperienceDA, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Shows", "Tales of Beadle the Bard", DIAGON_ALLEY, NOT_FAVORITE,  R.string.talesBeadle, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Shows", "Triwizard Spirit Rally", HOGWARTS, NOT_FAVORITE,  R.string.triwizardSpirit, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
         mHelper.insert("Shopping", "Borgin & Burkes", KNOCKTURN_ALLEY, NOT_FAVORITE,  R.string.borginBurkes, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Shopping", "Dervish & Banges", HOGSMEADE, NOT_FAVORITE,  R.string.dervishBanges, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Shopping", "Filch\'s Emporium of Confiscated Goods", HOGWARTS, NOT_FAVORITE,  R.string.filchsEmporium, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Shopping", "Gringotts Money Exchange", DIAGON_ALLEY, NOT_FAVORITE,  R.string.gringottMoneyExchange, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Shopping", "Honeydukes", HOGSMEADE, NOT_FAVORITE,  R.string.honeydukes, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Shopping", "Mandam Malkin\'s Robes for All Occasions", DIAGON_ALLEY, NOT_FAVORITE,  R.string.madamMalkins, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Shopping", "Magical Menagerie", HOGSMEADE, NOT_FAVORITE,  R.string.magicalMenagerie, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Shopping", "Olivanders", HOGSMEADE, NOT_FAVORITE,  R.string.olivandersH, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Shopping", "Olivanders", DIAGON_ALLEY, NOT_FAVORITE,  R.string.olivandersExperienceDA, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Shopping", "Owl Post & Owlery", HOGSMEADE, NOT_FAVORITE,  R.string.owlPostOwlery, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Shopping", "Quality Quidditch Supplies", DIAGON_ALLEY, NOT_FAVORITE,  R.string.qualityQuidditch, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Shopping", "Weasley\'s Wizard Wheezes", DIAGON_ALLEY, NOT_FAVORITE,  R.string.weasleysWizard, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Shopping", "Wisacre\'s Wizarding Equipment", DIAGON_ALLEY, NOT_FAVORITE,  R.string.wiseacresWizarding, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Shopping", "Scribbulus", DIAGON_ALLEY, NOT_FAVORITE,  R.string.scribbulus, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Shopping", "Shutterbutton\'s Photography Studio", DIAGON_ALLEY, NOT_FAVORITE,  R.string.shutterbuttons, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert("Shopping", "Wands by Gregorovitch", DIAGON_ALLEY, NOT_FAVORITE,  R.string.wandsByGregorovitch, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
     }
 
 
-//    public void populateTables(){
-//        mHelper.insert("Food", "Three Broomsticks", HOGSMEADE, NOT_FAVORITE, R.string.threeBroomSticks, R.drawable.threebroomsticks_logo, R.drawable.threebroomsticks_header, R.drawable.threebroomsticks_map);
-//        mHelper.insert("Rides", "Dragon's Challenge", HOGSMEADE, NOT_FAVORITE,  R.string.dragonsChallenge, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-//        mHelper.insert("Shows", "Celestina Warbeck Concert", DIAGON_ALLEY, NOT_FAVORITE,  R.string.celestinaWarbeck, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-//        mHelper.insert("Shopping", "Borgin & Burkes", KNOCKTURN_ALLEY, NOT_FAVORITE,  R.string.borginBurkes, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-////        firstLaunch = false;
-//    }
-
-//    public void saveSharedPreferences(){
-//        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//
-//        editor.putBoolean(SP_INSERT_ROWS_KEY, firstLaunch);
-//        editor.commit();
-//    }
+    public void saveSharedPreferences(){
+        firstLaunch = false;
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(FIRST_RUN_KEY, firstLaunch);
+        editor.commit();
+    }
 
     private void setIntents(){
         intentSendToResultsActivity = new Intent(MainActivity.this, ResultsActivity.class);
