@@ -1,6 +1,8 @@
 package com.example.cher.cherproject2;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +24,7 @@ public class DetailsActivity extends AppCompatActivity {
     int idOfItemPressed;
     Categories itemClicked;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,8 +33,8 @@ public class DetailsActivity extends AppCompatActivity {
         initializeViews();
         mHelper = HPSQLiteHelper.getmInstance(DetailsActivity.this);
         getAndSetIntent();
+        setFavoriteButtonImage();
         createAndSetFavoriteButton();
-        setIconOfFavoriteButton();
 
     }
 
@@ -59,7 +62,16 @@ public class DetailsActivity extends AppCompatActivity {
         }
     }
 
+    private void setFavoriteButtonImage(){
+        if(itemClicked.getFavoriteStatus().equals(MainActivity.NOT_FAVORITE)){
+            detailsFavoriteStatusButton.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
+        } else{
+            detailsFavoriteStatusButton.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
+        }
+    }
+
     private void createAndSetFavoriteButton(){
+
         detailsFavoriteStatusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,9 +90,5 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    public void setIconOfFavoriteButton(){
-        detailsFavoriteStatusButton.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
     }
 }

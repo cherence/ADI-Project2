@@ -3,10 +3,12 @@ package com.example.cher.cherproject2;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -25,26 +27,36 @@ public class MainActivity extends AppCompatActivity {
     Button shoppingButton;
     Intent intentSendToResultsActivity;
     HPSQLiteHelper mHelper;
+    boolean firstLaunch;
+    boolean isPlaying;
+
 
     public static final String HOGSMEADE = "Hogsmeade";
     public static final String HOGWARTS = "Hogwarts";
     public static final String DIAGON_ALLEY = "Diagon Alley";
     public static final String KNOCKTURN_ALLEY = "Knockturn Alley";
     public static final String LONDON = "London, UK";
-    public static final String FAVORITE = "true";
-    public static final String NOT_FAVORITE = "false";
-
-
-    static final String TYPES_KEY = "key for favorites button";
+    public static final String FAVORITE = "alohomora";
+    public static final String NOT_FAVORITE = "colloportus";
+    public static final String TYPES_KEY = "key for all button";
+    public static final String SHARED_PREFERENCES_KEY = "key for sharedPreferences";
+    public static final String SP_INSERT_ROWS_KEY = "sharedPreferences key for inserting rows";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        isPlaying = MusicService.isPlaying;
+        firstLaunch = true;
+
+//        makeTableOrRetrieveSharedPreferences();
+
         initializeViews();
         mHelper = HPSQLiteHelper.getmInstance(MainActivity.this);
         insertRows();
+
+//        saveSharedPreferences();
         setIntents();
 
         createAndSetFavoritesButton();
@@ -55,6 +67,15 @@ public class MainActivity extends AppCompatActivity {
         createAndSetShoppingButton();
 
     }
+
+//    private void makeTableOrRetrieveSharedPreferences(){
+//        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE);
+//        Boolean hasRun = sharedPreferences.getBoolean(SP_INSERT_ROWS_KEY, false);
+//        //if it's the very first time...
+//        if (!hasRun) {
+//            Log.d("MainActivity", "populating table");
+//        }
+//    }
 
     private void initializeViews(){
         welcomeImage = (ImageView) findViewById(R.id.welcome_imageView_id);
@@ -72,6 +93,23 @@ public class MainActivity extends AppCompatActivity {
         mHelper.insert("Shows", "Celestina Warbeck Concert", DIAGON_ALLEY, NOT_FAVORITE,  R.string.celestinaWarbeck, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
         mHelper.insert("Shopping", "Borgin & Burkes", KNOCKTURN_ALLEY, NOT_FAVORITE,  R.string.borginBurkes, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
     }
+
+
+//    public void populateTables(){
+//        mHelper.insert("Food", "Three Broomsticks", HOGSMEADE, NOT_FAVORITE, R.string.threeBroomSticks, R.drawable.threebroomsticks_logo, R.drawable.threebroomsticks_header, R.drawable.threebroomsticks_map);
+//        mHelper.insert("Rides", "Dragon's Challenge", HOGSMEADE, NOT_FAVORITE,  R.string.dragonsChallenge, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+//        mHelper.insert("Shows", "Celestina Warbeck Concert", DIAGON_ALLEY, NOT_FAVORITE,  R.string.celestinaWarbeck, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+//        mHelper.insert("Shopping", "Borgin & Burkes", KNOCKTURN_ALLEY, NOT_FAVORITE,  R.string.borginBurkes, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+////        firstLaunch = false;
+//    }
+
+//    public void saveSharedPreferences(){
+//        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//
+//        editor.putBoolean(SP_INSERT_ROWS_KEY, firstLaunch);
+//        editor.commit();
+//    }
 
     private void setIntents(){
         intentSendToResultsActivity = new Intent(MainActivity.this, ResultsActivity.class);

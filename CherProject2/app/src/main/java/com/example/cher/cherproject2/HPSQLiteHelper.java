@@ -166,7 +166,7 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_NAME,
                 TABLE_COLUMNS,
                 COL_FAVORITE_STATUS + " = ?",
-                new String[]{"true"},
+                new String[]{MainActivity.FAVORITE},
                 COL_TYPE,
                 null,
                 COL_NAME,
@@ -180,7 +180,7 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_NAME,
                 TABLE_COLUMNS,
                 COL_TYPE + " LIKE ? OR " + COL_NAME + " LIKE ? OR " + COL_GENERAL_LOCATION + " LIKE ?",
-                new String[]{"%" + query + "%"},
+                new String[]{"%" + query + "%", "%" + query + "%", "%" + query + "%"},
                 null,
                 null,
                 COL_NAME,
@@ -194,7 +194,7 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_NAME,
                 TABLE_COLUMNS,
                 COL_TYPE + "= 'Food' AND " + COL_NAME + " LIKE ? OR " + COL_TYPE + "= 'Food' AND " + COL_GENERAL_LOCATION + " LIKE ?",
-                new String[]{"%" + query + "%"},
+                new String[]{"%" + query + "%", "%" + query + "%"},
                 COL_TYPE,
                 null,
                 COL_NAME,
@@ -208,7 +208,7 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_NAME,
                 TABLE_COLUMNS,
                 COL_TYPE + "= 'Rides' AND " + COL_NAME + " LIKE ? OR " + COL_TYPE + "= 'Rides' AND " + COL_GENERAL_LOCATION + " LIKE ?",
-                new String[]{"%" + query + "%"},
+                new String[]{"%" + query + "%", "%" + query + "%"},
                 COL_TYPE,
                 null,
                 COL_NAME,
@@ -222,7 +222,7 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_NAME,
                 TABLE_COLUMNS,
                 COL_TYPE + "= 'Shows' AND " + COL_NAME + " LIKE ? OR " + COL_TYPE + "= 'Shows' AND " + COL_GENERAL_LOCATION + " LIKE ?",
-                new String[]{"%" + query + "%"},
+                new String[]{"%" + query + "%", "%" + query + "%"},
                 COL_TYPE,
                 null,
                 COL_NAME,
@@ -236,7 +236,7 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_NAME,
                 TABLE_COLUMNS,
                 COL_TYPE + "= 'Shopping' AND " + COL_NAME + " LIKE ? OR " + COL_TYPE + "= 'Shopping' AND " + COL_GENERAL_LOCATION + " LIKE ?",
-                new String[]{"%" + query + "%"},
+                new String[]{"%" + query + "%", "%" + query + "%"},
                 COL_TYPE,
                 null,
                 COL_NAME,
@@ -249,8 +249,8 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(TABLE_NAME,
                 TABLE_COLUMNS,
-                COL_FAVORITE_STATUS + "= 'true' AND " + COL_TYPE + " LIKE ? OR " + COL_NAME + " LIKE ? OR " + COL_GENERAL_LOCATION + " LIKE ?",
-                new String[]{"%" + query + "%"},
+                COL_FAVORITE_STATUS + "= '" + MainActivity.FAVORITE + "' AND " + COL_TYPE + " LIKE ? OR " + COL_FAVORITE_STATUS + "= '" + MainActivity.FAVORITE + "' AND " + COL_NAME + " LIKE ? OR " + COL_FAVORITE_STATUS + "= '" + MainActivity.FAVORITE + "' AND "+ COL_GENERAL_LOCATION + " LIKE ?",
+                new String[]{"%" + query + "%", "%" + query + "%", "%" + query + "%"},
                 COL_TYPE,
                 null,
                 COL_NAME,
@@ -356,8 +356,4 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
             return -22;
         }
     }
-
-
-
-
 }

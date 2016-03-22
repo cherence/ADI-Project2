@@ -135,7 +135,7 @@ public class ResultsActivity extends AppCompatActivity {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             if (resultsTitleTextView.getText().toString().equals("Favorites")) {
-                Cursor cursor = mHelper.searchFavoritesRows(query);
+                cursor = mHelper.searchFavoritesRows(query);
                 mCursorAdapter.changeCursor(cursor);
                 mCursorAdapter.notifyDataSetChanged();
             } else if (resultsTitleTextView.getText().toString().equals("View All")) {
