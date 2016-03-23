@@ -12,7 +12,6 @@ import android.support.annotation.Nullable;
 public class MusicService extends Service {
 
     MediaPlayer hedwigsThemeMusicPlayer;
-    public static boolean isPlaying = true;
 
     @Nullable
     @Override
@@ -22,22 +21,22 @@ public class MusicService extends Service {
 
     @Override
     public void onCreate() {
+        super.onCreate();
         hedwigsThemeMusicPlayer = MediaPlayer.create(this, R.raw.hedwigs_theme_music);
         hedwigsThemeMusicPlayer.setLooping(true);
-        super.onCreate();
     }
 
     @Override
     public void onDestroy() {
         hedwigsThemeMusicPlayer.stop();
-        isPlaying = false;
+        ThemeSongSingleton.getmInstance().setIsPlaying(false);
         super.onDestroy();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         hedwigsThemeMusicPlayer.start();
-        isPlaying = true;
+        ThemeSongSingleton.getmInstance().setIsPlaying(true);
         return super.onStartCommand(intent, flags, startId);
     }
 }

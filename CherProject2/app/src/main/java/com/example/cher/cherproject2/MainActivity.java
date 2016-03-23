@@ -11,6 +11,7 @@ import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     HPSQLiteHelper mHelper;
     SharedPreferences sharedPreferences;
     boolean firstLaunch;
-    boolean isPlaying;
+    ThemeSongSingleton themeSongSingleton;
 
 
     public static final String HOGSMEADE = "Hogsmeade";
@@ -48,7 +49,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        isPlaying = MusicService.isPlaying;
+        themeSongSingleton = ThemeSongSingleton.getmInstance();
+        startService(new Intent(this, MusicService.class));
+
         firstLaunch = true;
 
         initializeViews();
@@ -65,6 +68,28 @@ public class MainActivity extends AppCompatActivity {
         createAndSetRidesButton();
         createAndSetShowsButton();
         createAndSetShoppingButton();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_no_search, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.music_noSearch_menuButton:
+                if(themeSongSingleton.isPlaying()){//if they click it and music is playing, turn it off
+                    stopService(new Intent(this, MusicService.class)); //startService();
+                } else {//if they click it and music isn't playing turn it on.
+                    startService(new Intent(this, MusicService.class)); //stopService();
+                }
+                return true;
+            default: //if we get here, the user's action isn't recognized so invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void makeTableOrRetrieveSharedPreferences(){

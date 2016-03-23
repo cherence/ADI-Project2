@@ -10,6 +10,7 @@ import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -26,6 +27,7 @@ public class ResultsActivity extends AppCompatActivity {
     HPSQLiteHelper mHelper;
     CursorAdapter mCursorAdapter;
     String titleExtra;
+    ThemeSongSingleton themeSongSingleton;
 
     public static final String KEY_SENDING_PRIMARY_ID = "_id";
 
@@ -35,6 +37,8 @@ public class ResultsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
 
+        themeSongSingleton = ThemeSongSingleton.getmInstance();
+
         initializeViews();
 
         mHelper = HPSQLiteHelper.getmInstance(ResultsActivity.this);
@@ -42,7 +46,7 @@ public class ResultsActivity extends AppCompatActivity {
         getIntentToChangeTitle();
         setCursorAndCursorAdaptersForVariousSearches();
 
-        handleIntent(getIntent());
+//        handleIntent(getIntent());
         createAndSetOnItemClickListener();
     }
 
@@ -124,6 +128,24 @@ public class ResultsActivity extends AppCompatActivity {
         SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.search:
+                handleIntent(getIntent());
+                return true;
+            case R.id.music_hasSearch_menuButton:
+                if(themeSongSingleton.isPlaying()){//if they click it and music is playing, turn it off
+                    stopService(new Intent(this, MusicService.class)); //startService();
+                } else {//if they click it and music isn't playing turn it on.
+                    startService(new Intent(this, MusicService.class)); //stopService();
+                }
+                return true;
+            default: //if we get here, the user's action isn't recognized so invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
