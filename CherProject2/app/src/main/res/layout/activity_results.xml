@@ -18,6 +18,7 @@
         android:textAllCaps="true"
         android:textAlignment="center"
         android:layout_margin="15sp"
+        android:textColor="@color/titleTextColor"
         android:text="Title Goes Here"
         />
 

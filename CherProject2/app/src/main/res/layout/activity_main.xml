@@ -13,41 +13,49 @@
         android:id="@+id/welcome_imageView_id"
         android:layout_width="match_parent"
         android:layout_height="200sp"
-        android:background="@drawable/welcome"/>
+        android:layout_marginTop="10sp"
+        android:background="@drawable/welcome_header"/>
 
     <LinearLayout
         android:id="@+id/icons_row1_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@+id/welcome_imageView_id">
+        android:layout_below="@+id/welcome_imageView_id"
+        android:layout_marginTop="20sp">
 
         <Button
             android:id="@+id/favorite_button_id"
-            android:layout_width="50sp"
-            android:layout_height="50sp"
+            android:layout_width="100sp"
+            android:layout_height="85sp"
             android:text="@string/favorites"
             android:textAlignment="center"
-            android:textSize="0sp"
-            android:background="@drawable/filled_heart_icon"
+            android:textSize="10sp"
+            android:textColor="@color/titleTextColor"
+            android:drawableTop="@drawable/filled_heart_icon"
+            android:layout_weight="1"
             />
 
         <Button
             android:id="@+id/allResults_button_id"
-            android:layout_width="50sp"
-            android:layout_height="50sp"
+            android:layout_width="100sp"
+            android:layout_height="85sp"
             android:text="@string/viewAll"
-            android:textSize="0sp"
-            android:background="@drawable/view_all_icon"
+            android:textSize="10sp"
+            android:textColor="@color/titleTextColor"
+            android:drawableTop="@drawable/view_all_icon"
+            android:layout_weight="1"
             />
 
         <Button
             android:id="@+id/shows_button_id"
-            android:layout_width="50sp"
-            android:layout_height="50sp"
+            android:layout_width="100sp"
+            android:layout_height="85sp"
             android:text="@string/shows"
-            android:textSize="0sp"
-            android:background="@drawable/shows_icon"
+            android:textSize="10sp"
+            android:textColor="@color/titleTextColor"
+            android:drawableTop="@drawable/shows_icon"
+            android:layout_weight="1"
             />
 
     </LinearLayout>
@@ -57,33 +65,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginTop="10sp"
         android:layout_below="@+id/icons_row1_id">
 
         <Button
             android:id="@+id/rides_button_id"
-            android:layout_width="50sp"
-            android:layout_height="50sp"
+            android:layout_width="100sp"
+            android:layout_height="85sp"
             android:text="@string/rides"
-            android:textSize="0sp"
-            android:background="@drawable/rides_icon"
+            android:textSize="10sp"
+            android:textColor="@color/titleTextColor"
+            android:drawableTop="@drawable/rides_icon"
+            android:layout_weight="1"
             />
 
         <Button
             android:id="@+id/shopping_button_id"
-            android:layout_width="50sp"
-            android:layout_height="50sp"
+            android:layout_width="100sp"
+            android:layout_height="85sp"
             android:text="@string/shopping"
-            android:textSize="0sp"
-            android:background="@drawable/shopping_icon"
+            android:textSize="10sp"
+            android:textColor="@color/titleTextColor"
+            android:drawableTop="@drawable/shopping_icon"
+            android:layout_weight="1"
             />
 
         <Button
             android:id="@+id/food_button_id"
-            android:layout_width="50sp"
-            android:layout_height="50sp"
+            android:layout_width="100sp"
+            android:layout_height="85sp"
             android:text="@string/food"
-            android:textSize="0sp"
-            android:background="@drawable/food_icon"
+            android:textSize="10sp"
+            android:textColor="@color/titleTextColor"
+            android:drawableTop="@drawable/food_icon"
+            android:layout_weight="1"
             />
 
     </LinearLayout>
