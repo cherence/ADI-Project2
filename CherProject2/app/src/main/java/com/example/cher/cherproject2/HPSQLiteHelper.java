@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by leisforkokomo on 3/16/16.
  */
 public class HPSQLiteHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "HPWorld.db";
     public static final String TABLE_NAME = "hpWorld";
 

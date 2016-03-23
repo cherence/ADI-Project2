@@ -13,12 +13,12 @@
         android:id="@+id/resultsTitle_textView_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
+        android:textSize="40sp"
         android:textStyle="bold"
         android:textAllCaps="true"
         android:textAlignment="center"
         android:layout_margin="15sp"
-        android:textColor="@color/titleTextColor"
+        android:textColor="@color/gryffindorScarlet"
         android:text="Title Goes Here"
         />
 

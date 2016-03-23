@@ -31,8 +31,8 @@
             android:text="@string/favorites"
             android:textAlignment="center"
             android:textSize="10sp"
-            android:textColor="@color/titleTextColor"
-            android:drawableTop="@drawable/filled_heart_icon"
+            android:textColor="@color/gryffindorScarlet"
+            android:drawableTop="@drawable/new_favorites_icon_"
             android:layout_weight="1"
             />
 
@@ -42,8 +42,8 @@
             android:layout_height="85sp"
             android:text="@string/viewAll"
             android:textSize="10sp"
-            android:textColor="@color/titleTextColor"
-            android:drawableTop="@drawable/view_all_icon"
+            android:textColor="@color/gryffindorScarlet"
+            android:drawableTop="@drawable/new_view_all__triple_icon"
             android:layout_weight="1"
             />
 
@@ -53,8 +53,8 @@
             android:layout_height="85sp"
             android:text="@string/shows"
             android:textSize="10sp"
-            android:textColor="@color/titleTextColor"
-            android:drawableTop="@drawable/shows_icon"
+            android:textColor="@color/gryffindorScarlet"
+            android:drawableTop="@drawable/new_shows_icon"
             android:layout_weight="1"
             />
 
@@ -74,8 +74,8 @@
             android:layout_height="85sp"
             android:text="@string/rides"
             android:textSize="10sp"
-            android:textColor="@color/titleTextColor"
-            android:drawableTop="@drawable/rides_icon"
+            android:textColor="@color/gryffindorScarlet"
+            android:drawableTop="@drawable/new_rides_icon"
             android:layout_weight="1"
             />
 
@@ -85,8 +85,8 @@
             android:layout_height="85sp"
             android:text="@string/shopping"
             android:textSize="10sp"
-            android:textColor="@color/titleTextColor"
-            android:drawableTop="@drawable/shopping_icon"
+            android:textColor="@color/gryffindorScarlet"
+            android:drawableTop="@drawable/new_shopping_icon"
             android:layout_weight="1"
             />
 
@@ -96,8 +96,8 @@
             android:layout_height="85sp"
             android:text="@string/food"
             android:textSize="10sp"
-            android:textColor="@color/titleTextColor"
-            android:drawableTop="@drawable/food_icon"
+            android:textColor="@color/gryffindorScarlet"
+            android:drawableTop="@drawable/new_food_icon"
             android:layout_weight="1"
             />
 
