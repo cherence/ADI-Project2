@@ -17,7 +17,7 @@
         <ImageView
             android:id="@+id/detailsHeaderImage_imageView_id"
             android:layout_width="match_parent"
-            android:layout_height="150sp"
+            android:layout_height="150dp"
             android:layout_alignParentTop="true"/>
 
         <TextView
@@ -29,10 +29,10 @@
             android:textStyle="bold"
             android:textSize="25sp"
             android:textColor="@color/gryffindorScarlet"
-            android:layout_marginLeft="10sp"
-            android:layout_marginRight="10sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_below="@+id/detailsHeaderImage_imageView_id"
-            android:layout_marginTop="10sp"/>
+            android:layout_marginTop="10dp"/>
 
         <TextView
             android:id="@+id/detailsType_textView_id"
@@ -40,14 +40,14 @@
             android:layout_height="wrap_content"
             android:text="Title goes here"
             android:textAlignment="center"
-            android:layout_marginLeft="10sp"
-            android:layout_marginRight="10sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_below="@+id/detailsName_textView_id"/>
 
         <Button
             android:id="@+id/detailsFavoriteStatus_button_id"
-            android:layout_width="30sp"
-            android:layout_height="30sp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_below="@+id/detailsName_textView_id"
             android:layout_alignRight="@+id/detailsType_textView_id"
             />
@@ -59,8 +59,8 @@
             android:text="Location goes here"
             android:textAlignment="center"
             android:textStyle="italic"
-            android:layout_marginLeft="10sp"
-            android:layout_marginRight="10sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_below="@+id/detailsType_textView_id"
             />
 
@@ -69,19 +69,50 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/detailsLocation_textView_id"
-            android:layout_marginTop="4sp"
-            android:layout_marginLeft="10sp"
-            android:layout_marginRight="10sp"
-            android:layout_marginBottom="10sp"/>
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"/>
 
         <ImageView
             android:id="@+id/detailsMap_imageView_id"
             android:layout_width="match_parent"
-            android:layout_height="150sp"
+            android:layout_height="150dp"
             android:layout_below="@+id/detailsInfo_textView_id"/>
 
+        <TextView
+            android:id="@+id/reviewTitle_textView_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Reviews"
+            android:textAllCaps="true"
+            android:textColor="@color/gryffindorScarlet"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_below="@+id/detailsMap_imageView_id" />
+
+        <ListView
+            android:id="@+id/review_ListView_id"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@id/reviewTitle_textView_id">
+        </ListView>
+
+        <EditText
+            android:id="@+id/review_editText_id"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:hint="Write a review on this attraction..."
+            android:layout_below="@id/review_ListView_id"/>
+
+        <Button
+            android:id="@+id/review_addReview_button_id"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/add_review_icon"
+            android:layout_below="@+id/review_editText_id"
+            />
     </RelativeLayout>
-
-
 
 </ScrollView>

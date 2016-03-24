@@ -17,20 +17,28 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+
+/**
+ * This is the starting point of the application.
+ * On this screen users can press one of six button to begin exploring the Wizarding World of Harry Potter (WWOHP).
+ * Once a button is clicked, every attraction at WWOHP matching that category type will be displayed on the next (ResultsActivity) screen.
+ */
 public class MainActivity extends AppCompatActivity {
 
-    ImageView welcomeImage;
-    Button favoritesButton;
-    Button allResultsButton;
-    Button foodButton;
-    Button ridesButton;
-    Button showsButton;
-    Button shoppingButton;
+    //region Private Variables
+    private ImageView welcomeImage;
+    private Button favoritesButton;
+    private Button allResultsButton;
+    private Button foodButton;
+    private Button ridesButton;
+    private Button showsButton;
+    private Button shoppingButton;
     Intent intentSendToResultsActivity;
-    HPSQLiteHelper mHelper;
-    SharedPreferences sharedPreferences;
-    boolean firstLaunch;
-    ThemeSongSingleton themeSongSingleton;
+    private HPSQLiteHelper mHelper;
+    private SharedPreferences sharedPreferences;
+    private boolean firstLaunch;
+    private ThemeSongSingleton themeSongSingleton;
+    //endregion Private Variables
 
 
     public static final String HOGSMEADE = "Hogsmeade";
@@ -44,6 +52,13 @@ public class MainActivity extends AppCompatActivity {
     public static final String SHARED_PREFERENCES_KEY = "key for sharedPreferences";
     public static final String FIRST_RUN_KEY = "sharedPreferences key for inserting rows";
 
+    String favorites;
+    String allResults;
+    String food;
+    String rides;
+    String shows;
+    String shopping;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,19 +71,20 @@ public class MainActivity extends AppCompatActivity {
 
         initializeViews();
         mHelper = HPSQLiteHelper.getmInstance(MainActivity.this);
+
         makeTableOrRetrieveSharedPreferences();
-//        populateTable();
-
         saveSharedPreferences();
-        setIntents();
 
-        createAndSetFavoritesButton();
-        createAndSetAllResultsButton();
-        createAndSetFoodButton();
-        createAndSetRidesButton();
-        createAndSetShowsButton();
-        createAndSetShoppingButton();
+        setIntents();
+        createStringsOfButtonNames();
+          createButtons();
     }
+
+    /**
+     *
+     * @param menu
+     * @return
+     */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -76,6 +92,12 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.menu_no_search, menu);
         return true;
     }
+
+    /**
+     *
+     * @param item
+     * @return
+     */
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -92,6 +114,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     *
+     */
+
     private void makeTableOrRetrieveSharedPreferences(){
         sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE);
         firstLaunch = sharedPreferences.getBoolean(FIRST_RUN_KEY, true);
@@ -103,6 +129,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * This method will initialize all the views used by this activity.
+     */
+
     private void initializeViews(){
         welcomeImage = (ImageView) findViewById(R.id.welcome_imageView_id);
         favoritesButton = (Button) findViewById(R.id.favorite_button_id);
@@ -112,6 +142,10 @@ public class MainActivity extends AppCompatActivity {
         showsButton = (Button) findViewById(R.id.shows_button_id);
         shoppingButton = (Button) findViewById(R.id.shopping_button_id);
     }
+
+    /**
+     * This method will insert rows into the HP World
+     */
 
     public void populateTable(){
         mHelper.insert("Food", "Three Broomsticks", HOGSMEADE, NOT_FAVORITE, R.string.threeBroomSticks, R.drawable.threebroomsticks_logo, R.drawable.threebroomsticks_header, R.drawable.threebroomsticks_map);
@@ -149,6 +183,9 @@ public class MainActivity extends AppCompatActivity {
         mHelper.insert("Shopping", "Wands by Gregorovitch", DIAGON_ALLEY, NOT_FAVORITE,  R.string.wandsByGregorovitch, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
     }
 
+    /**
+     *
+     */
 
     public void saveSharedPreferences(){
         firstLaunch = false;
@@ -157,73 +194,55 @@ public class MainActivity extends AppCompatActivity {
         editor.commit();
     }
 
+    /**
+     *
+     */
+
     private void setIntents(){
         intentSendToResultsActivity = new Intent(MainActivity.this, ResultsActivity.class);
     }
 
-    private void createAndSetFavoritesButton(){
-        favoritesButton.setOnClickListener(new View.OnClickListener() {
+    /**
+     *This method creates a string of the button's name for each button in this activity.
+     */
+
+    private void createStringsOfButtonNames(){
+        favorites = favoritesButton.getText().toString();
+        allResults = allResultsButton.getText().toString();
+        food = foodButton.getText().toString();
+        rides = ridesButton.getText().toString();
+        shows = showsButton.getText().toString();
+        shopping = shoppingButton.getText().toString();
+    }
+
+    /**
+     * This method sets the click listeners for all the views in this activity.
+     * It sets a putExtra for #intentSendToResultsActivity that always uses the #TYPES_KEY but allows the developer to pass in a value of their choice.
+     * When a user clicks on a view, it will #startsActivity to send #intentSendToResultsActivity.
+     * @param button
+     * @param nameOfButton
+     */
+
+    private void setOnClickListeners(Button button, final String nameOfButton){
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String favorites = favoritesButton.getText().toString();
-                intentSendToResultsActivity.putExtra(TYPES_KEY, favorites);
+                intentSendToResultsActivity.putExtra(TYPES_KEY, nameOfButton);
                 startActivity(intentSendToResultsActivity);
             }
         });
     }
 
-    private void createAndSetAllResultsButton(){
-        allResultsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String allResults = allResultsButton.getText().toString();
-                intentSendToResultsActivity.putExtra(TYPES_KEY, allResults);
-                startActivity(intentSendToResultsActivity);
-            }
-        });
-    }
+    /**
+     * This method makes all the buttons in this activity.
+     */
 
-    private void createAndSetFoodButton(){
-        foodButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String food = foodButton.getText().toString();
-                intentSendToResultsActivity.putExtra(TYPES_KEY, food);
-                startActivity(intentSendToResultsActivity);
-            }
-        });
-    }
-
-    private void createAndSetRidesButton(){
-        ridesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String rides = ridesButton.getText().toString();
-                intentSendToResultsActivity.putExtra(TYPES_KEY, rides);
-                startActivity(intentSendToResultsActivity);
-            }
-        });
-    }
-
-    private void createAndSetShowsButton(){
-        showsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String shows = showsButton.getText().toString();
-                intentSendToResultsActivity.putExtra(TYPES_KEY, shows);
-                startActivity(intentSendToResultsActivity);
-            }
-        });
-    }
-
-    private void createAndSetShoppingButton(){
-        shoppingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String shopping = shoppingButton.getText().toString();
-                intentSendToResultsActivity.putExtra(TYPES_KEY, shopping);
-                startActivity(intentSendToResultsActivity);
-            }
-        });
+    private void createButtons(){
+        setOnClickListeners(favoritesButton, favorites);
+        setOnClickListeners(allResultsButton, allResults);
+        setOnClickListeners(foodButton, food);
+        setOnClickListeners(ridesButton, rides);
+        setOnClickListeners(showsButton, shows);
+        setOnClickListeners(shoppingButton, shopping);
     }
 }

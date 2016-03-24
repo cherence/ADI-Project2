@@ -1,17 +1,22 @@
 package com.example.cher.cherproject2;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CursorAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class DetailsActivity extends AppCompatActivity {
@@ -23,10 +28,17 @@ public class DetailsActivity extends AppCompatActivity {
     TextView detailsLocationTextView;
     TextView detailsInfoTextView;
     ImageView detailsMapImageView;
+    TextView reviewTitleTextView;
+    ListView reviewListView;
+    EditText writeReviewEditText;
+    Button addReviewButton;
     HPSQLiteHelper mHelper;
     int idOfItemPressed;
-    Categories itemClicked;
+    Attraction itemClicked;
     ThemeSongSingleton themeSongSingleton;
+    Cursor reviewCursor;
+    CursorAdapter simpleCursorAdapter;
+    String userInputReviews;
 
 
     @Override
@@ -40,7 +52,8 @@ public class DetailsActivity extends AppCompatActivity {
         getAndSetIntent();
         setFavoriteButtonImage();
         createAndSetFavoriteButton();
-
+        createAndSetCursorAndSimpleCursorAdapterForReviews(idOfItemPressed);
+        insertRowsToReviewTable();
     }
 
     @Override
@@ -73,6 +86,10 @@ public class DetailsActivity extends AppCompatActivity {
         detailsLocationTextView = (TextView) findViewById(R.id.detailsLocation_textView_id);
         detailsInfoTextView = (TextView) findViewById(R.id.detailsInfo_textView_id);
         detailsMapImageView = (ImageView) findViewById(R.id.detailsMap_imageView_id);
+        reviewTitleTextView = (TextView) findViewById(R.id.reviewTitle_textView_id);
+        reviewListView = (ListView) findViewById(R.id.review_ListView_id);
+        writeReviewEditText = (EditText) findViewById(R.id.review_editText_id);
+        addReviewButton = (Button) findViewById(R.id.review_addReview_button_id);
     }
 
     private void getAndSetIntent(){
@@ -102,7 +119,7 @@ public class DetailsActivity extends AppCompatActivity {
         detailsFavoriteStatusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (itemClicked.getFavoriteStatus()){
+                switch (itemClicked.getFavoriteStatus()) {
                     case MainActivity.NOT_FAVORITE:
                         detailsFavoriteStatusButton.setBackgroundResource(R.drawable.filled_heart_icon);
                         mHelper.updateFavoriteStatus(idOfItemPressed, MainActivity.FAVORITE);
@@ -117,5 +134,35 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void createAndSetCursorAndSimpleCursorAdapterForReviews(int idOfItemPressed){ //display reviews
+        reviewCursor = mHelper.getReviewRows(idOfItemPressed);
+        reviewCursor.moveToFirst();
+        String[] columns = new String[]{HPSQLiteHelper.COL_REVIEW};
+        int[] viewNames = new int[]{android.R.id.text1}; //was R.id.review_ListView_id maybe list_of_reviews_textView_id
+        simpleCursorAdapter = new SimpleCursorAdapter(DetailsActivity.this,android.R.layout.simple_list_item_1, reviewCursor, columns, viewNames,0);
+        reviewListView.setAdapter(simpleCursorAdapter);
+
+    }
+
+    public void insertRowsToReviewTable(){
+
+        addReviewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userInputReviews = writeReviewEditText.getText().toString();
+                if (userInputReviews.isEmpty()){
+                    Toast.makeText(DetailsActivity.this, "Please write a review.", Toast.LENGTH_SHORT).show();
+                } else {
+                    mHelper.insertReviews(idOfItemPressed, userInputReviews);
+                    reviewCursor.moveToFirst();
+                    reviewCursor = mHelper.getReviewRows(idOfItemPressed);
+                    simpleCursorAdapter.swapCursor(reviewCursor);
+                    simpleCursorAdapter.notifyDataSetChanged();
+                    writeReviewEditText.getText().clear();
+                }
+            }
+        });
     }
 }

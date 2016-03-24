@@ -5,20 +5,20 @@ import android.widget.ImageView;
 /**
  * Created by leisforkokomo on 3/13/16.
  */
-public class Categories {
-    String mType;
-    String mName;
-    String mGeneralLocation;
-    String favoriteStatus;
-    int mInformation;
-    int mLogoImageRId;
-    int mHeaderImageRId;
-    int mMapImageRId;
+public class Attraction {
+    private String mType;
+    private String mName;
+    private String mGeneralLocation;
+    private String favoriteStatus;
+    private int mInformation;
+    private int mLogoImageRId;
+    private int mHeaderImageRId;
+    private int mMapImageRId;
 
-    public Categories() {
+    public Attraction() {
     }
 
-    public Categories(String mType, String mName, String mGeneralLocation, String favoriteStatus, int mInformation, int mLogoImageRId, int mHeaderImageRId, int mMapImageRId) {
+    public Attraction(String mType, String mName, String mGeneralLocation, String favoriteStatus, int mInformation, int mLogoImageRId, int mHeaderImageRId, int mMapImageRId) {
         this.mType = mType;
         this.mName = mName;
         this.mGeneralLocation = mGeneralLocation;
