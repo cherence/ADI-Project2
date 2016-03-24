@@ -1,20 +1,15 @@
 package com.example.cher.cherproject2;
 
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 
 
@@ -153,38 +148,38 @@ public class MainActivity extends AppCompatActivity {
 
     public void populateTable(){
         mHelper.insert(TYPE_FOOD, "Three Broomsticks", HOGSMEADE, NOT_FAVORITE, R.string.threeBroomSticks, R.drawable.threebroomsticks_logo, R.drawable.threebroomsticks_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_FOOD, "Hog\'s Head Pub", HOGSMEADE, NOT_FAVORITE, R.string.hogsHeadPub, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_FOOD, "Leaky Cauldron", DIAGON_ALLEY, NOT_FAVORITE, R.string.leakyCauldron, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_FOOD, "The Hopping Pot", DIAGON_ALLEY, NOT_FAVORITE, R.string.hoppingPot, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_FOOD, "Florean Fortescue\'s Ice-Cream Parlour", DIAGON_ALLEY, NOT_FAVORITE, R.string.floreanFortescue, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_RIDES, "Dragon's Challenge", HOGSMEADE, NOT_FAVORITE, R.string.dragonsChallenge, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_RIDES, "Flight of the Hippogriff", HOGWARTS, NOT_FAVORITE, R.string.flightHippogriff, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_RIDES, "Harry Potter and the Forbidden Journey", HOGWARTS, NOT_FAVORITE, R.string.forbiddenJourney, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_RIDES, "Escape from Gringotts", DIAGON_ALLEY, NOT_FAVORITE, R.string.escapeGringotts, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_RIDES, "Hogsmeade Station", HOGSMEADE, NOT_FAVORITE, R.string.hogsmeadeStation, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_RIDES, "King\'s Cross Station", LONDON, NOT_FAVORITE, R.string.kingsCrossStation, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_SHOWS, "Celestina Warbeck Concert", DIAGON_ALLEY, NOT_FAVORITE,  R.string.celestinaWarbeck, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_SHOWS, "Frog Choir", HOGWARTS, NOT_FAVORITE,  R.string.frogChoir, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_FOOD, "Hog\'s Head Pub", HOGSMEADE, NOT_FAVORITE, R.string.hogsHeadPub, R.drawable.hogshead_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_FOOD, "Leaky Cauldron", DIAGON_ALLEY, NOT_FAVORITE, R.string.leakyCauldron, R.drawable.leakycauldron_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_FOOD, "The Hopping Pot", DIAGON_ALLEY, NOT_FAVORITE, R.string.hoppingPot, R.drawable.hoppingpot_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_FOOD, "Florean Fortescue\'s Ice-Cream Parlour", DIAGON_ALLEY, NOT_FAVORITE, R.string.floreanFortescue, R.drawable.florean_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_RIDES, "Dragon's Challenge", HOGSMEADE, NOT_FAVORITE, R.string.dragonsChallenge, R.drawable.dragonschallenge_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_RIDES, "Flight of the Hippogriff", HOGWARTS, NOT_FAVORITE, R.string.flightHippogriff, R.drawable.flightofhipp_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_RIDES, "Harry Potter and the Forbidden Journey", HOGWARTS, NOT_FAVORITE, R.string.forbiddenJourney, R.drawable.forbiddenjourney_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_RIDES, "Escape from Gringotts", DIAGON_ALLEY, NOT_FAVORITE, R.string.escapeGringotts, R.drawable.escapegringotts_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_RIDES, "Hogsmeade Station", HOGSMEADE, NOT_FAVORITE, R.string.hogsmeadeStation, R.drawable.hogsmeadestation_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_RIDES, "King\'s Cross Station", LONDON, NOT_FAVORITE, R.string.kingsCrossStation, R.drawable.kingscross_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_SHOWS, "Celestina Warbeck Concert", DIAGON_ALLEY, NOT_FAVORITE,  R.string.celestinaWarbeck, R.drawable.celestina_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_SHOWS, "Frog Choir", HOGWARTS, NOT_FAVORITE,  R.string.frogChoir, R.drawable.frogschoir_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
         mHelper.insert(TYPE_SHOWS, "Ollivanders Wand Experience", HOGSMEADE, NOT_FAVORITE,  R.string.olivandersExperienceH, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
         mHelper.insert(TYPE_SHOWS, "Ollivanders Wand Experience", DIAGON_ALLEY, NOT_FAVORITE,  R.string.olivandersExperienceDA, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_SHOWS, "Tales of Beadle the Bard", DIAGON_ALLEY, NOT_FAVORITE,  R.string.talesBeadle, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_SHOWS, "Triwizard Spirit Rally", HOGWARTS, NOT_FAVORITE,  R.string.triwizardSpirit, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_SHOPPING, "Borgin & Burkes", KNOCKTURN_ALLEY, NOT_FAVORITE,  R.string.borginBurkes, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_SHOPPING, "Dervish & Banges", HOGSMEADE, NOT_FAVORITE,  R.string.dervishBanges, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_SHOPPING, "Filch\'s Emporium of Confiscated Goods", HOGWARTS, NOT_FAVORITE,  R.string.filchsEmporium, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_SHOPPING, "Gringotts Money Exchange", DIAGON_ALLEY, NOT_FAVORITE,  R.string.gringottMoneyExchange, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_SHOPPING, "Honeydukes", HOGSMEADE, NOT_FAVORITE,  R.string.honeydukes, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_SHOPPING, "Mandam Malkin\'s Robes for All Occasions", DIAGON_ALLEY, NOT_FAVORITE,  R.string.madamMalkins, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_SHOPPING, "Magical Menagerie", HOGSMEADE, NOT_FAVORITE,  R.string.magicalMenagerie, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_SHOPPING, "Ollivanders", HOGSMEADE, NOT_FAVORITE,  R.string.olivandersH, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_SHOWS, "Tales of Beadle the Bard", DIAGON_ALLEY, NOT_FAVORITE,  R.string.talesBeadle, R.drawable.talesbeadle_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_SHOWS, "Triwizard Spirit Rally", HOGWARTS, NOT_FAVORITE,  R.string.triwizardSpirit, R.drawable.trispiritrally_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_SHOPPING, "Borgin & Burkes", KNOCKTURN_ALLEY, NOT_FAVORITE,  R.string.borginBurkes, R.drawable.bourgin_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_SHOPPING, "Dervish & Banges", HOGSMEADE, NOT_FAVORITE,  R.string.dervishBanges, R.drawable.dervish_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_SHOPPING, "Filch\'s Emporium of Confiscated Goods", HOGWARTS, NOT_FAVORITE,  R.string.filchsEmporium, R.drawable.filtchs_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_SHOPPING, "Gringotts Money Exchange", DIAGON_ALLEY, NOT_FAVORITE,  R.string.gringottMoneyExchange, R.drawable.gringottsmoneyex_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_SHOPPING, "Honeydukes", HOGSMEADE, NOT_FAVORITE,  R.string.honeydukes, R.drawable.honeydukes_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_SHOPPING, "Mandam Malkin\'s Robes for All Occasions", DIAGON_ALLEY, NOT_FAVORITE,  R.string.madamMalkins, R.drawable.madammalkins_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_SHOPPING, "Magical Menagerie", HOGSMEADE, NOT_FAVORITE,  R.string.magicalMenagerie, R.drawable.magicalmenagerie_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_SHOPPING, "Ollivanders", HOGSMEADE, NOT_FAVORITE,  R.string.olivandersH, R.drawable.ollistore_h_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
         mHelper.insert(TYPE_SHOPPING, "Ollivanders", DIAGON_ALLEY, NOT_FAVORITE,  R.string.olivandersExperienceDA, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_SHOPPING, "Owl Post & Owlery", HOGSMEADE, NOT_FAVORITE,  R.string.owlPostOwlery, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_SHOPPING, "Quality Quidditch Supplies", DIAGON_ALLEY, NOT_FAVORITE,  R.string.qualityQuidditch, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_SHOPPING, "Weasley\'s Wizard Wheezes", DIAGON_ALLEY, NOT_FAVORITE,  R.string.weasleysWizard, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_SHOPPING, "Wisacre\'s Wizarding Equipment", DIAGON_ALLEY, NOT_FAVORITE,  R.string.wiseacresWizarding, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_SHOPPING, "Scribbulus", DIAGON_ALLEY, NOT_FAVORITE,  R.string.scribbulus, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_SHOPPING, "Shutterbutton\'s Photography Studio", DIAGON_ALLEY, NOT_FAVORITE,  R.string.shutterbuttons, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_SHOPPING, "Wands by Gregorovitch", DIAGON_ALLEY, NOT_FAVORITE,  R.string.wandsByGregorovitch, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_SHOPPING, "Owl Post & Owlery", HOGSMEADE, NOT_FAVORITE,  R.string.owlPostOwlery, R.drawable.owlpost_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_SHOPPING, "Quality Quidditch Supplies", DIAGON_ALLEY, NOT_FAVORITE,  R.string.qualityQuidditch, R.drawable.qualityquid_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_SHOPPING, "Weasley\'s Wizard Wheezes", DIAGON_ALLEY, NOT_FAVORITE,  R.string.weasleysWizard, R.drawable.weasleys_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_SHOPPING, "Wisacre\'s Wizarding Equipment", DIAGON_ALLEY, NOT_FAVORITE,  R.string.wiseacresWizarding, R.drawable.wiseacres_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_SHOPPING, "Scribbulus", DIAGON_ALLEY, NOT_FAVORITE,  R.string.scribbulus, R.drawable.scribbulus_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_SHOPPING, "Shutterbutton\'s Photography Studio", DIAGON_ALLEY, NOT_FAVORITE,  R.string.shutterbuttons, R.drawable.shutterbuttons_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_SHOPPING, "Wands by Gregorovitch", DIAGON_ALLEY, NOT_FAVORITE,  R.string.wandsByGregorovitch, R.drawable.wandsbygreg_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
     }
 
     /**
