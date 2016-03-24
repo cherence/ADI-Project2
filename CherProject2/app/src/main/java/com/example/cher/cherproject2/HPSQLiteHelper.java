@@ -106,7 +106,7 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(REVIEW_TABLE_NAME, null, values);
-//        db.close();
+        db.close();
     }
 
 
