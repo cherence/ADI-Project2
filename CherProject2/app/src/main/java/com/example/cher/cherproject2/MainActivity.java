@@ -160,8 +160,8 @@ public class MainActivity extends AppCompatActivity {
         mHelper.insert(TYPE_RIDES, "King\'s Cross Station", LONDON, NOT_FAVORITE, R.string.kingsCrossStation, R.drawable.kingscross_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
         mHelper.insert(TYPE_SHOWS, "Celestina Warbeck Concert", DIAGON_ALLEY, NOT_FAVORITE,  R.string.celestinaWarbeck, R.drawable.celestina_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
         mHelper.insert(TYPE_SHOWS, "Frog Choir", HOGWARTS, NOT_FAVORITE,  R.string.frogChoir, R.drawable.frogschoir_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_SHOWS, "Ollivanders Wand Experience", HOGSMEADE, NOT_FAVORITE,  R.string.olivandersExperienceH, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_SHOWS, "Ollivanders Wand Experience", DIAGON_ALLEY, NOT_FAVORITE,  R.string.olivandersExperienceDA, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_SHOWS, "Ollivanders Wand Experience", HOGSMEADE, NOT_FAVORITE,  R.string.olivandersExperienceH, R.drawable.olliwandex_h_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_SHOWS, "Ollivanders Wand Experience", DIAGON_ALLEY, NOT_FAVORITE,  R.string.olivandersExperienceDA, R.drawable.olliwandex_da_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
         mHelper.insert(TYPE_SHOWS, "Tales of Beadle the Bard", DIAGON_ALLEY, NOT_FAVORITE,  R.string.talesBeadle, R.drawable.talesbeadle_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
         mHelper.insert(TYPE_SHOWS, "Triwizard Spirit Rally", HOGWARTS, NOT_FAVORITE,  R.string.triwizardSpirit, R.drawable.trispiritrally_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
         mHelper.insert(TYPE_SHOPPING, "Borgin & Burkes", KNOCKTURN_ALLEY, NOT_FAVORITE,  R.string.borginBurkes, R.drawable.bourgin_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
         mHelper.insert(TYPE_SHOPPING, "Mandam Malkin\'s Robes for All Occasions", DIAGON_ALLEY, NOT_FAVORITE,  R.string.madamMalkins, R.drawable.madammalkins_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
         mHelper.insert(TYPE_SHOPPING, "Magical Menagerie", HOGSMEADE, NOT_FAVORITE,  R.string.magicalMenagerie, R.drawable.magicalmenagerie_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
         mHelper.insert(TYPE_SHOPPING, "Ollivanders", HOGSMEADE, NOT_FAVORITE,  R.string.olivandersH, R.drawable.ollistore_h_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_SHOPPING, "Ollivanders", DIAGON_ALLEY, NOT_FAVORITE,  R.string.olivandersExperienceDA, R.drawable.generic_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_SHOPPING, "Ollivanders", DIAGON_ALLEY, NOT_FAVORITE,  R.string.olivandersDA, R.drawable.ollistore_da_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
         mHelper.insert(TYPE_SHOPPING, "Owl Post & Owlery", HOGSMEADE, NOT_FAVORITE,  R.string.owlPostOwlery, R.drawable.owlpost_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
         mHelper.insert(TYPE_SHOPPING, "Quality Quidditch Supplies", DIAGON_ALLEY, NOT_FAVORITE,  R.string.qualityQuidditch, R.drawable.qualityquid_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
         mHelper.insert(TYPE_SHOPPING, "Weasley\'s Wizard Wheezes", DIAGON_ALLEY, NOT_FAVORITE,  R.string.weasleysWizard, R.drawable.weasleys_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
