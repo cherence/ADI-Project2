@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         mHelper.insert(TYPE_FOOD, "Leaky Cauldron", DIAGON_ALLEY, NOT_FAVORITE, R.string.leakyCauldron, R.drawable.leakycauldron_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
         mHelper.insert(TYPE_FOOD, "The Hopping Pot", DIAGON_ALLEY, NOT_FAVORITE, R.string.hoppingPot, R.drawable.hoppingpot_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
         mHelper.insert(TYPE_FOOD, "Florean Fortescue\'s Ice-Cream Parlour", DIAGON_ALLEY, NOT_FAVORITE, R.string.floreanFortescue, R.drawable.florean_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
-        mHelper.insert(TYPE_RIDES, "Dragon's Challenge", HOGSMEADE, NOT_FAVORITE, R.string.dragonsChallenge, R.drawable.dragonschallenge_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
+        mHelper.insert(TYPE_RIDES, "Dragon's Challenge", HOGSMEADE, NOT_FAVORITE, R.string.dragonsChallenge, R.drawable.dragonschallenge_logo, R.drawable.dragonschallenge_header, R.drawable.threebroomsticks_map);
         mHelper.insert(TYPE_RIDES, "Flight of the Hippogriff", HOGWARTS, NOT_FAVORITE, R.string.flightHippogriff, R.drawable.flightofhipp_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
         mHelper.insert(TYPE_RIDES, "Harry Potter and the Forbidden Journey", HOGWARTS, NOT_FAVORITE, R.string.forbiddenJourney, R.drawable.forbiddenjourney_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
         mHelper.insert(TYPE_RIDES, "Escape from Gringotts", DIAGON_ALLEY, NOT_FAVORITE, R.string.escapeGringotts, R.drawable.escapegringotts_logo, R.drawable.generic_header, R.drawable.threebroomsticks_map);
