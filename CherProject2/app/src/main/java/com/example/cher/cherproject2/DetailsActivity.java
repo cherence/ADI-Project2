@@ -2,6 +2,7 @@ package com.example.cher.cherproject2;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,6 +40,8 @@ public class DetailsActivity extends AppCompatActivity {
     Cursor reviewCursor;
     CursorAdapter simpleCursorAdapter;
     String userInputReviews;
+//    Typeface lumosFont;
+//    Typeface harryPFont;
 
 
     @Override
@@ -46,10 +49,14 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
+//        lumosFont = Typeface.createFromAsset(getAssets(), "fonts/lumos.TTF");
+//        harryPFont = Typeface.createFromAsset(getAssets(), "fonts/harryPFont.TTF");
+
         themeSongSingleton = ThemeSongSingleton.getmInstance();
         initializeViews();
         mHelper = HPSQLiteHelper.getmInstance(DetailsActivity.this);
         getAndSetIntent();
+//        setCustomFonts();
         setFavoriteButtonImage();
         createAndSetFavoriteButton();
         createAndSetCursorAndSimpleCursorAdapterForReviews(idOfItemPressed);
@@ -105,6 +112,11 @@ public class DetailsActivity extends AppCompatActivity {
             detailsMapImageView.setBackgroundResource(itemClicked.getmMapImageRId());
         }
     }
+
+//    private void setCustomFonts(){
+//        detailsNameTextView.setTypeface(harryPFont);
+////        reviewTitleTextView.setTypeface(lumosFont);
+//    }
 
     private void setFavoriteButtonImage(){
         if(itemClicked.getFavoriteStatus().equals(MainActivity.NOT_FAVORITE)){

@@ -19,25 +19,29 @@ Features
 
 - Clean user interface with Gryffindor color scheme.
 
-- Plays music 
+- Plays the iconic and nostalgic, Hedwig's Theme, as soon as the app is launched.
 
-- Add an item to your list or create a new list by clicking on the pink button.
+- Theme music can be easily turned on or off from the music button embedded in the toolbar.   
 
-- If you click on the pink button and the textbox is empty, you'll get a pop-up message reminding you to populate the empty field.
+- Begin exploring the Wizarding World of Harry Potter by clicking on one of six category buttons: food, rides, shows, shops, view all, and favorites. 
 
-- Clicking on a list will take you to a new screen where you can add items to your list.
+- Clicking on a category button on the home screen will launch a new screen with all the attractions that match that category type. Each attraction is listed with a small image to the left of the attractions, name, category, and genearl location.
 
-- Cross items off your lists by tapping/clicking on it.
+- Narrow the results further or find a specic attraction on the second screen by searching by name or general location. Search by type, name, and general location is available on the favorites and view all lists. 
 
-- Erase any entry by holding down on the item (long-click).
+- Clicking on an attraction will take you to a new screen that displays a detailed description, image, and static map of the attraction.
 
-- Clicking on the back buttn will allow you to access your lists withough losing data.
+- Leave reviews on each attraction by writing a review and clicking the scarlet and gold add button. 
+
+- If you click on add button and the review textbox is empty, you'll get a pop-up message reminding you to populate the empty field.
+
+- Clicking on the back button will allow you to access your lists withough losing data.
 
 
 Bugs
 ----
 
-- If user turns off the music then changes the orientation of the device, the music will turn back on.
+- Scrolling isn't as smooth as it could be.
 
 
 Code
