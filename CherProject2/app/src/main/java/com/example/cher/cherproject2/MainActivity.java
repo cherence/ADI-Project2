@@ -15,8 +15,9 @@ import android.widget.ImageView;
 
 /**
  * This is the starting point of the application.
- * On this screen users can press one of six button to begin exploring the Wizarding World of Harry Potter (WWOHP).
- * Once a button is clicked, every attraction at WWOHP matching that category type will be displayed on the next (ResultsActivity) screen.
+ * On this screen users can press one of six button to begin exploring the Wizarding World of Harry
+ * Potter (WWOHP). Once a button is clicked, every attraction at WWOHP matching that category type
+ * will be displayed on the next (ResultsActivity) screen.
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -28,14 +29,20 @@ public class MainActivity extends AppCompatActivity {
     private Button ridesButton;
     private Button showsButton;
     private Button shoppingButton;
-    Intent intentSendToResultsActivity;
+    private Intent intentSendToResultsActivity;
     private HPSQLiteHelper mHelper;
     private SharedPreferences sharedPreferences;
     private boolean firstLaunch;
     private ThemeSongSingleton themeSongSingleton;
+    private String favorites;
+    private String allResults;
+    private String food;
+    private String rides;
+    private String shows;
+    private String shopping;
     //endregion Private Variables
 
-
+    //region Public Variables
     public static final String HOGSMEADE = "Hogsmeade";
     public static final String HOGWARTS = "Hogwarts";
     public static final String DIAGON_ALLEY = "Diagon Alley";
@@ -50,13 +57,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String TYPES_KEY = "key for all button";
     public static final String SHARED_PREFERENCES_KEY = "key for sharedPreferences";
     public static final String FIRST_RUN_KEY = "sharedPreferences key for inserting rows";
+    //endregion Public Variables
 
-    String favorites;
-    String allResults;
-    String food;
-    String rides;
-    String shows;
-    String shopping;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,22 +67,18 @@ public class MainActivity extends AppCompatActivity {
 
         themeSongSingleton = ThemeSongSingleton.getmInstance();
         startService(new Intent(this, MusicService.class));
-
         firstLaunch = true;
-
         initializeViews();
         mHelper = HPSQLiteHelper.getmInstance(MainActivity.this);
-
         makeTableOrRetrieveSharedPreferences();
         saveSharedPreferences();
-
         initializeIntent();
         createStringsOfButtonNames();
-          createButtons();
+        createButtons();
     }
 
     /**
-     *
+     *This method inflates the custom menu in the app bar.
      * @param menu
      * @return
      */
@@ -93,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * This method sets up what will happen if and when a user clicks on a menu item (icon).
      * @param item
      * @return
      */
@@ -114,7 +112,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * This method dictates which method(s) to run based on whether this is the first time the app
+     * is being run.
      */
 
     private void makeTableOrRetrieveSharedPreferences(){
@@ -183,7 +182,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *This method saves the SharedPreferences ****.
+     * This method saves the SharedPreferences so the table is only built once during the first time
+     * the app is run.
      */
 
     public void saveSharedPreferences(){
@@ -216,8 +216,9 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * This method sets the click listeners for all the views in this activity.
-     * It sets a putExtra for #intentSendToResultsActivity that always uses the #TYPES_KEY but allows the developer to pass in a value of their choice.
-     * When a user clicks on a view, it will #startsActivity to send #intentSendToResultsActivity.
+     * It sets a putExtra for #intentSendToResultsActivity that always uses the #TYPES_KEY but
+     * allows the developer to pass in a value of their choice. When a user clicks on a view, it
+     * will #startsActivity to send #intentSendToResultsActivity.
      * @param button
      * @param nameOfButton
      */

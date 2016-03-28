@@ -22,26 +22,25 @@ import android.widget.Toast;
 
 public class DetailsActivity extends AppCompatActivity {
 
-    ImageView detailsHeaderImageView;
-    TextView detailsNameTextView;
-    TextView detailsTypeTextView;
-    Button detailsFavoriteStatusButton;
-    TextView detailsLocationTextView;
-    TextView detailsInfoTextView;
-    ImageView detailsMapImageView;
-    TextView reviewTitleTextView;
-    ListView reviewListView;
-    EditText writeReviewEditText;
-    Button addReviewButton;
-    HPSQLiteHelper mHelper;
-    int idOfItemPressed;
-    Attraction itemClicked;
-    ThemeSongSingleton themeSongSingleton;
-    Cursor reviewCursor;
-    CursorAdapter simpleCursorAdapter;
-    String userInputReviews;
-//    Typeface lumosFont;
-//    Typeface harryPFont;
+
+    private ImageView detailsHeaderImageView;
+    private TextView detailsNameTextView;
+    private TextView detailsTypeTextView;
+    private Button detailsFavoriteStatusButton;
+    private TextView detailsLocationTextView;
+    private TextView detailsInfoTextView;
+    private ImageView detailsMapImageView;
+    private TextView reviewTitleTextView;
+    private ListView reviewListView;
+    private EditText writeReviewEditText;
+    private Button addReviewButton;
+    private HPSQLiteHelper mHelper;
+    private int idOfItemPressed;
+    private Attraction itemClicked;
+    private ThemeSongSingleton themeSongSingleton;
+    private Cursor reviewCursor;
+    private CursorAdapter simpleCursorAdapter;
+    private String userInputReviews;
 
 
     @Override
@@ -49,19 +48,21 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
-//        lumosFont = Typeface.createFromAsset(getAssets(), "fonts/lumos.TTF");
-//        harryPFont = Typeface.createFromAsset(getAssets(), "fonts/harryPFont.TTF");
-
         themeSongSingleton = ThemeSongSingleton.getmInstance();
         initializeViews();
         mHelper = HPSQLiteHelper.getmInstance(DetailsActivity.this);
         getAndSetIntent();
-//        setCustomFonts();
         setFavoriteButtonImage();
         createAndSetFavoriteButton();
-        createAndSetCursorAndSimpleCursorAdapterForReviews(idOfItemPressed);
+        displayReviews(idOfItemPressed);
         insertRowsToReviewTable();
     }
+
+    /**
+     *This method inflates the custom menu.
+     * @param menu
+     * @return
+     */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -69,6 +70,12 @@ public class DetailsActivity extends AppCompatActivity {
         inflater.inflate(R.menu.menu_no_search, menu);
         return true;
     }
+
+    /**
+     * This method sets up what will happen if and when a user clicks on a menu item (icon).
+     * @param item
+     * @return
+     */
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -85,6 +92,10 @@ public class DetailsActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     *This method initializes all the views in this activity.
+     */
+
     private void initializeViews(){
         detailsHeaderImageView = (ImageView) findViewById(R.id.detailsHeaderImage_imageView_id);
         detailsNameTextView = (TextView) findViewById(R.id.detailsName_textView_id);
@@ -98,6 +109,11 @@ public class DetailsActivity extends AppCompatActivity {
         writeReviewEditText = (EditText) findViewById(R.id.review_editText_id);
         addReviewButton = (Button) findViewById(R.id.review_addReview_button_id);
     }
+
+    /**
+     *This method gets the intent sent from the #ResultsActivity (int _id) and creates and instance of the Attraction object for the row in the HP_Table with that _id.
+     *Then this method utilizes the getters of the Attraction object to set the views of the activity.
+     */
 
     private void getAndSetIntent(){
         idOfItemPressed = getIntent().getIntExtra(ResultsActivity.KEY_SENDING_PRIMARY_ID, -1);
@@ -113,10 +129,11 @@ public class DetailsActivity extends AppCompatActivity {
         }
     }
 
-//    private void setCustomFonts(){
-//        detailsNameTextView.setTypeface(harryPFont);
-////        reviewTitleTextView.setTypeface(lumosFont);
-//    }
+    /**
+     * This method sets the image of the favorite button in this activity.
+     * If the object's favoriteStatus is equal to #MainActivity.NOT_FAVORITE, an empty gold-colored heart will be displayed when the screen loads.
+     * If the object's favoriteStatus is equal to #MainActivity.FAVORITE, a filled-in scarlet-colored heart will be displayed when the screen loads.
+     */
 
     private void setFavoriteButtonImage(){
         if(itemClicked.getFavoriteStatus().equals(MainActivity.NOT_FAVORITE)){
@@ -125,6 +142,13 @@ public class DetailsActivity extends AppCompatActivity {
             detailsFavoriteStatusButton.setBackgroundResource(R.drawable.filled_heart_icon);
         }
     }
+
+    /**
+     * This method sets the click listener for the favorite button.
+     * Whenever the favorite button is clicked, the featured attraction's favoriteStatus will be updated in the object and the HP_TABLE.
+     * If the featured attraction's favoriteStatus is #MainActivity.NOT_FAVORITE when clicked, the favoriteStatus will change to #MainActivity.FAVORITE.
+     * If the featured attraction's favoriteStatus is #MainActivity.FAVORITE when clicked, the favoriteStatus will change to #MainActivity.NOT_FAVORITE.
+     */
 
     private void createAndSetFavoriteButton(){
 
@@ -145,21 +169,30 @@ public class DetailsActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
-    public void createAndSetCursorAndSimpleCursorAdapterForReviews(int idOfItemPressed){ //display reviews
+    /**
+     * This method creates the reviewCursor and the simple CursorAdapter that will display the results of the reviewCursor.
+     * It also sets the CursorAdapter.
+     * @param idOfItemPressed
+     */
+
+    public void displayReviews(int idOfItemPressed){
         reviewCursor = mHelper.getReviewRows(idOfItemPressed);
         reviewCursor.moveToFirst();
         String[] columns = new String[]{HPSQLiteHelper.COL_REVIEW};
-        int[] viewNames = new int[]{android.R.id.text1}; //was R.id.review_ListView_id maybe list_of_reviews_textView_id
+        int[] viewNames = new int[]{android.R.id.text1};
         simpleCursorAdapter = new SimpleCursorAdapter(DetailsActivity.this,android.R.layout.simple_list_item_1, reviewCursor, columns, viewNames,0);
         reviewListView.setAdapter(simpleCursorAdapter);
-
     }
 
-    public void insertRowsToReviewTable(){
 
+    /**
+     * This method will insert a review to the REVIEWS_TABLE whenever a user clicks on the add review button.
+     * It will also display the review in the ListView as soon as it is submitted by the user.
+     */
+
+    public void insertRowsToReviewTable(){
         addReviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

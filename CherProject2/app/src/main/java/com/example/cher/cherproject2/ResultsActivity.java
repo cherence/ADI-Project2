@@ -19,17 +19,28 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+/**
+ * This is the second screen of the app. On this screen users can browse and search through the
+ * WWOHP attractions that match the category they selected. Once an attraction is clicked on, a
+ * third (DetailsActivity) screen will display detailed information about that specific attraction
+ */
+
 public class ResultsActivity extends AppCompatActivity {
 
-    TextView resultsTitleTextView;
-    ListView categoryResultsListView;
-    Cursor cursor;
-    HPSQLiteHelper mHelper;
-    CursorAdapter mCursorAdapter;
-    String titleExtra;
-    ThemeSongSingleton themeSongSingleton;
+    //region Private Variables
+    private TextView resultsTitleTextView;
+    private ListView categoryResultsListView;
+    private Cursor cursor;
+    private HPSQLiteHelper mHelper;
+    private CursorAdapter mCursorAdapter;
+    private String titleExtra;
+    private ThemeSongSingleton themeSongSingleton;
+    //endregion Private Variables
 
+    //region Public Variables
     public static final String KEY_SENDING_PRIMARY_ID = "_id";
+    //endregion Public Variables
+
 
 
     @Override
@@ -38,22 +49,26 @@ public class ResultsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_results);
 
         themeSongSingleton = ThemeSongSingleton.getmInstance();
-
         initializeViews();
-
         mHelper = HPSQLiteHelper.getmInstance(ResultsActivity.this);
         createCursorAdapter();
         getIntentToChangeTitle();
-        setCursorAndCursorAdaptersForVariousSearches();
-
-//        handleIntent(getIntent());
+        displayAttractionsInEachCategory();
         createAndSetOnItemClickListener();
     }
+
+    /**
+     * This method initializes all the views in this activity.
+     */
 
     public void initializeViews() {
         resultsTitleTextView = (TextView) findViewById(R.id.resultsTitle_textView_id);
         categoryResultsListView = (ListView) findViewById(R.id.categoryResults_listView_id);
     }
+
+    /**
+     * This method creates the custom cursor adapter which allows the cursor to be displayed on the screen.
+     */
 
     private void createCursorAdapter() {
         mCursorAdapter = new CursorAdapter(ResultsActivity.this, cursor, 0) {
@@ -77,47 +92,66 @@ public class ResultsActivity extends AppCompatActivity {
         };
     }
 
+    /**
+     * This method changes the page's title to the name of the button that was pressed in the previous
+     * (MainActivity) screen.
+     */
+
     private void getIntentToChangeTitle() {
         Intent intentRetrieveFromMainActivity = getIntent();
         titleExtra = intentRetrieveFromMainActivity.getStringExtra(MainActivity.TYPES_KEY);
         resultsTitleTextView.setText(titleExtra);
     }
 
-    private void setCursorAndCursorAdaptersForVariousSearches() {
+    /**
+     * This method sets the cursors and cursor adapters necessary to display the unique list of
+     * attractions for each category (button) displayed on the first screen.
+     */
 
-        switch (resultsTitleTextView.getText().toString()) { //may be titleExtra
+    private void displayAttractionsInEachCategory() {
+        switch (resultsTitleTextView.getText().toString()) {
             case "Favorites":
                 cursor = mHelper.getFavoriteRows();
-                mCursorAdapter.swapCursor(cursor);
-                categoryResultsListView.setAdapter(mCursorAdapter);
+                updateCursorAdapter();
                 break;
             case "View All":
                 cursor = mHelper.getEntireTable();
-                mCursorAdapter.swapCursor(cursor);
-                categoryResultsListView.setAdapter(mCursorAdapter);
+                updateCursorAdapter();
                 break;
             case "Food":
                 cursor = mHelper.getFoodRows();
-                mCursorAdapter.swapCursor(cursor);
-                categoryResultsListView.setAdapter(mCursorAdapter);
+                updateCursorAdapter();
                 break;
             case "Rides":
                 cursor = mHelper.getRidesRows();
-                mCursorAdapter.swapCursor(cursor);
-                categoryResultsListView.setAdapter(mCursorAdapter);
+                updateCursorAdapter();
                 break;
             case "Shows":
                 cursor = mHelper.getShowsRows();
-                mCursorAdapter.swapCursor(cursor);
-                categoryResultsListView.setAdapter(mCursorAdapter);
+                updateCursorAdapter();
                 break;
             case "Shopping":
                 cursor = mHelper.getShoppingRows();
-                mCursorAdapter.swapCursor(cursor);
-                categoryResultsListView.setAdapter(mCursorAdapter);
+                updateCursorAdapter();
                 break;
         }
     }
+
+
+    /**
+     * This method swaps the new cursor for the old one and sets the cursor adapter to the proper list view.
+     */
+
+    private void updateCursorAdapter(){
+        mCursorAdapter.swapCursor(cursor);
+        categoryResultsListView.setAdapter(mCursorAdapter);
+    }
+
+    /**
+     * This method inflates the custom menu in the app bar.
+     * @param menu
+     * @return
+     */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -130,60 +164,86 @@ public class ResultsActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * This method sets up what will happen if and when a user clicks on a menu item (icon). If the
+     * music button is clicked and music is playing turn it off. If the music button is clicked and
+     * the music isn't playing, turn it on.
+     * @param item
+     * @returnf
+     */
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.search:
-                handleIntent(getIntent());
+                performSearchAndDisplayResults(getIntent());
                 return true;
             case R.id.music_hasSearch_menuButton:
-                if(themeSongSingleton.isPlaying()){//if they click it and music is playing, turn it off
-                    stopService(new Intent(this, MusicService.class)); //startService();
-                } else {//if they click it and music isn't playing turn it on.
-                    startService(new Intent(this, MusicService.class)); //stopService();
+                if(themeSongSingleton.isPlaying()){
+                    stopService(new Intent(this, MusicService.class));
+                } else {
+                    startService(new Intent(this, MusicService.class));
                 }
                 return true;
-            default: //if we get here, the user's action isn't recognized so invoke the superclass to handle it.
+            default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    /**
+     * This method override the new intent needed to peform and display search results.
+     * @param intent
+     */
+
     @Override
     protected void onNewIntent(Intent intent) {
-        handleIntent(intent);
+        performSearchAndDisplayResults(intent);
     }
 
-    private void handleIntent(Intent intent) {
+    /**
+     * This method sets cursors and cursor adapters for each of the category-specific searches
+     * offered in this app. It performs searches based on user input and displays the results of the
+     * search in the list view.
+     *
+     * @param intent
+     */
+
+    private void performSearchAndDisplayResults(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             if (resultsTitleTextView.getText().toString().equals("Favorites")) {
                 cursor = mHelper.searchFavoritesRows(query);
-                mCursorAdapter.swapCursor(cursor);
-                mCursorAdapter.notifyDataSetChanged();
+                updateAndNotifyCursorAdapter();
             } else if (resultsTitleTextView.getText().toString().equals("View All")) {
                 cursor = mHelper.searchEntireTable(query);
-                mCursorAdapter.swapCursor(cursor);
-                mCursorAdapter.notifyDataSetChanged();
+                updateAndNotifyCursorAdapter();
             } else if (resultsTitleTextView.getText().toString().equals("Food")) {
                 cursor = mHelper.searchFoodRows(query);
-                mCursorAdapter.swapCursor(cursor);
-                mCursorAdapter.notifyDataSetChanged();
+                updateAndNotifyCursorAdapter();
             } else if (resultsTitleTextView.getText().toString().equals("Rides")) {
-                Cursor cursor = mHelper.searchRidesRows(query);
-                mCursorAdapter.swapCursor(cursor);
-                mCursorAdapter.notifyDataSetChanged();
+                cursor = mHelper.searchRidesRows(query);
+                updateAndNotifyCursorAdapter();
             } else if (resultsTitleTextView.getText().toString().equals("Shows")) {
-                Cursor cursor = mHelper.searchShowsRows(query);
-                mCursorAdapter.swapCursor(cursor);
-                mCursorAdapter.notifyDataSetChanged();
+                cursor = mHelper.searchShowsRows(query);
+                updateAndNotifyCursorAdapter();
             } else if (resultsTitleTextView.getText().toString().equals("Shopping")) {
-                Cursor cursor = mHelper.searchShoppingRows(query);
-                mCursorAdapter.swapCursor(cursor);
-                mCursorAdapter.notifyDataSetChanged();
+                cursor = mHelper.searchShoppingRows(query);
+                updateAndNotifyCursorAdapter();
             }
-
         }
     }
+
+    /**
+     * This method swaps the new cursor for the old one and notifies the cursor adapter of the change.
+     */
+    private void updateAndNotifyCursorAdapter(){
+        mCursorAdapter.swapCursor(cursor);
+        mCursorAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * Sets on item click listener. Will launch detailed page for the attraction clicked.
+     */
 
     private void createAndSetOnItemClickListener() {
         categoryResultsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

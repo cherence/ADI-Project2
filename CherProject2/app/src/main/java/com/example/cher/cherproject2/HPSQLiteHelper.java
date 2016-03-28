@@ -10,11 +10,15 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by leisforkokomo on 3/16/16.
  */
 public class HPSQLiteHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "HPWorld.db";
-    public static final String TABLE_NAME = "hpWorld";
-    public static final String REVIEW_TABLE_NAME = "attractionReviews";
 
+    //region Private Variables
+    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "HPWorld.db";
+    private static final String TABLE_NAME = "hpWorld";
+    private static final String REVIEW_TABLE_NAME = "attractionReviews";
+    //endregion Private Variables
+
+    //region Public Variables
     public static final String COL_ID = "_id";
     public static final String COL_TYPE = "type";
     public static final String COL_NAME = "name";
@@ -27,16 +31,16 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
     public static final String COL_ID_REVIEW_TABLE = "_id";
     public static final String COL_ATTRACTION_ID = "attractionID";
     public static final String COL_REVIEW = "review";
+    //endregion Public Variables
 
+    //region Private Variables
+    private static final String[] TABLE_COLUMNS = {COL_ID,COL_TYPE,COL_NAME,COL_GENERAL_LOCATION,COL_FAVORITE_STATUS,COL_INFORMATION,COL_LOGO_IMAGE,COL_HEADER_IMAGE,COL_MAP_IMAGE};
+    private static final String[] REVIEW_TABLE_COLUMNS = {COL_ID_REVIEW_TABLE, COL_ATTRACTION_ID, COL_REVIEW};
 
+    private static final String DROP_HPWORLD_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
+    private static final String DROP_REVIEW_TABLE = "DROP TABLE IF EXISTS " + REVIEW_TABLE_NAME;
 
-    public static final String[] TABLE_COLUMNS = {COL_ID,COL_TYPE,COL_NAME,COL_GENERAL_LOCATION,COL_FAVORITE_STATUS,COL_INFORMATION,COL_LOGO_IMAGE,COL_HEADER_IMAGE,COL_MAP_IMAGE};
-    public static final String[] REVIEW_TABLE_COLUMNS = {COL_ID_REVIEW_TABLE, COL_ATTRACTION_ID, COL_REVIEW};
-
-    public static final String DROP_HPWORLD_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
-    public static final String DROP_REVIEW_TABLE = "DROP TABLE IF EXISTS " + REVIEW_TABLE_NAME;
-
-    public static final String CREATE_HPWORLD_TABLE =
+    private static final String CREATE_HPWORLD_TABLE =
             "CREATE TABLE " + TABLE_NAME +
                     "(" +
                     COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -49,7 +53,7 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
                     COL_HEADER_IMAGE + " INTEGER, " +
                     COL_MAP_IMAGE + " INTEGER)";
 
-    public static final String CREATE_REVIEW_TABLE =
+    private static final String CREATE_REVIEW_TABLE =
             "CREATE TABLE " + REVIEW_TABLE_NAME +
                     "(" +
                     COL_ID_REVIEW_TABLE + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -58,6 +62,13 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
                     "FOREIGN KEY (" + COL_ATTRACTION_ID + ") REFERENCES " + TABLE_NAME + "(" + COL_ID + "))";
 
     private static HPSQLiteHelper mInstance;
+    //endregion Private Variables
+
+    /**
+     * Creates an instance (singleton) of the HPSQLiteHelper.
+     * @param context
+     * @return
+     */
 
     public static HPSQLiteHelper getmInstance(Context context){
         if(mInstance == null){
@@ -65,9 +76,19 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
         } return mInstance;
     }
 
-    public HPSQLiteHelper(Context context) { //set to private at the end b/c of mInstance
+    /**
+     * HPSQLiteHelper constructor. Set to private because a HPSQLiteHelper singleton was made.
+     * @param context
+     */
+
+    private HPSQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
+    /**
+     * This method creates the tables.
+     * @param db
+     */
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -75,12 +96,32 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_REVIEW_TABLE);
     }
 
+    /**
+     * If a later table version is available, this method will delete the old table and replace it
+     * with the new one.
+     * @param db
+     * @param oldVersion
+     * @param newVersion
+     */
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(DROP_HPWORLD_TABLE);
         db.execSQL(DROP_REVIEW_TABLE);
         onCreate(db);
     }
+
+    /**
+     * This method inserts rows (new attractions) into the HP Table (#TABLE_NAME).
+     * @param type
+     * @param name
+     * @param generalLocation
+     * @param favoriteStatus
+     * @param information
+     * @param logoImage
+     * @param headerImage
+     * @param mapImage
+     */
 
     public void insert(String type, String name, String generalLocation, String favoriteStatus, int information, int logoImage, int headerImage, int mapImage){
         ContentValues values = new ContentValues();
@@ -98,6 +139,12 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * This method inserts review rows into the review table (#REVIEW_TABLE_NAME)
+     * @param attractionID
+     * @param review
+     */
+
     public void insertReviews(int attractionID, String review){
         ContentValues values = new ContentValues();
         values.put(COL_ATTRACTION_ID, attractionID);
@@ -109,6 +156,11 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * This method updates the favoriteStatus column of the row matching the specific #_id.
+     * @param _id
+     * @param favoriteStatus
+     */
 
     public void updateFavoriteStatus(int _id, String favoriteStatus){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -118,6 +170,11 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
         db.update(TABLE_NAME, values, "_id=" + _id, null);
         db.close();
     }
+
+    /**
+     * This method will return the cursor for a query of all the rows in the table.
+     * @return
+     */
 
     public Cursor getEntireTable(){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -133,6 +190,11 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+    /**
+     * This method will return the cursor for a query of all the rows with type food.
+     * @return
+     */
+
     public Cursor getFoodRows(){
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -146,6 +208,11 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
                 null);
         return cursor;
     }
+
+    /**
+     * This method will return the cursor for a query of all the rows with type rides.
+     * @return
+     */
 
     public Cursor getRidesRows(){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -161,6 +228,11 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+    /**
+     * This method will return the cursor for a query of all the rows with type shows.
+     * @return
+     */
+
     public Cursor getShowsRows(){
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -174,6 +246,11 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
                 null);
         return cursor;
     }
+
+    /**
+     * This method will return the cursor for a query of all the rows with type shopping.
+     * @return
+     */
 
     public Cursor getShoppingRows(){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -189,6 +266,10 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+    /**
+     * This method will return the cursor for a query of all the rows marked as favorite.
+     * @return
+     */
 
     public Cursor getFavoriteRows(){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -204,6 +285,13 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+    /**
+     * This method will return the cursor for a query of all review rows matching the specific
+     * attraction ID of attraction featured on in DetailsActivity.
+     * @param attractionID
+     * @return
+     */
+
     public Cursor getReviewRows(int attractionID){
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -217,6 +305,13 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
                 null);
         return cursor;
     }
+
+    /**
+     * This method returns a cursor from a query performed on the entire table (all categories).
+     * It allows the user to search by name, type (category), and general location.
+     * @param query
+     * @return
+     */
 
     public Cursor searchEntireTable(String query){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -232,6 +327,13 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+    /**
+     * This method returns a cursor from a query performed on all attractions in the food category.
+     * It allows the user to search within the food category (type) by name and general location.
+     * @param query
+     * @return
+     */
+
     public Cursor searchFoodRows(String query){
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -245,6 +347,13 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
                 null);
         return cursor;
     }
+
+    /**
+     * This method returns a cursor from a query performed on all attractions in the rides category.
+     * It allows the user to search within the rides category (type) by name and general location.
+     * @param query
+     * @return
+     */
 
     public Cursor searchRidesRows(String query){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -260,6 +369,13 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+    /**
+     * This method returns a cursor from a query performed on all attractions in the shows category.
+     * It allows the user to search within the shows category (type) by name and general location.
+     * @param query
+     * @return
+     */
+
     public Cursor searchShowsRows(String query){
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -273,6 +389,13 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
                 null);
         return cursor;
     }
+
+    /**
+     * This method returns a cursor from a query performed on all attractions in the shopping category.
+     * It allows the user to search within the shopping category (type) by name and general location.
+     * @param query
+     * @return
+     */
 
     public Cursor searchShoppingRows(String query){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -289,7 +412,8 @@ public class HPSQLiteHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * This method returns a cursor from a query ***. it allows
+     * This method returns a cursor from a query performed on all attractions marked as favorite.
+     * It allows the user to search their list of favorite attractions by name, type (category), and general location.
      * @param query
      * @return
      */
